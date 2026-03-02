@@ -9,13 +9,12 @@
 </head>
 <body>
 
-  <!-- SIDEBAR -->
+  <!-- ═══════════ SIDEBAR ═══════════ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <img src="Usable/thamanyah.png" alt="ثمانية" class="sidebar-logo">
       <span class="sidebar-brand">أداة تحليل المعلقين</span>
     </div>
-
     <nav class="sidebar-nav">
       <a href="#" class="nav-item active">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -25,7 +24,7 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         <span>تحليل جديد</span>
       </a>
-      <a href="#" class="nav-item selected">
+      <a href="#" class="nav-item">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         <span>التقارير</span>
       </a>
@@ -38,7 +37,6 @@
         <span>الإعدادات</span>
       </a>
     </nav>
-
     <div class="sidebar-footer">
       <div class="sidebar-user">
         <div class="user-avatar">م</div>
@@ -50,22 +48,20 @@
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- ═══════════ MAIN CONTENT ═══════════ -->
   <main class="main-content">
-
-    <!-- Top Bar -->
     <header class="top-bar">
       <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="top-bar-content">
-        <h1 class="page-title">تقرير تحليل الأداء</h1>
-        <div class="top-bar-actions">
-          <button class="btn btn-secondary btn-sm">
+        <h1 class="page-title">تحليل جديد</h1>
+        <div class="top-bar-actions" style="display:none;">
+          <button class="btn btn-secondary btn-sm" id="exportPdfBtn" onclick="exportPDF()">
             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>تصدير PDF</span>
           </button>
-          <button class="btn btn-primary btn-sm">
+          <button class="btn btn-primary btn-sm" onclick="startNewAnalysis()">
             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             <span>تحليل جديد</span>
           </button>
@@ -73,625 +69,238 @@
       </div>
     </header>
 
-    <!-- Scrollable Content Area -->
-    <div class="content-scroll">
+    <!-- ═══════════ VIEW: UPLOAD ═══════════ -->
+    <div class="view view-upload view-active">
+      <div class="content-scroll">
+        <div class="upload-container">
+          <div class="upload-hero">
+            <div class="upload-hero-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+            <h2 class="upload-hero-title">تحليل تعليق مباراة جديدة</h2>
+            <p class="upload-hero-desc">ارفع التسجيل الصوتي للتعليق وسيقوم الذكاء الاصطناعي بتحليل الأداء وفق أعلى المعايير المهنية</p>
+          </div>
 
-      <!-- Match Info Banner -->
-      <section class="match-banner">
-        <div class="match-banner-inner">
-          <div class="match-teams">
-            <div class="team">
-              <div class="team-badge team-a">AH</div>
-              <span class="team-name">الأهلي</span>
-            </div>
-            <div class="match-score-display">
-              <span class="match-result">2 - 1</span>
-              <span class="match-label">الدوري السعودي للمحترفين — الجولة ١٨</span>
-              <span class="match-date">١٤ فبراير ٢٠٢٦</span>
-            </div>
-            <div class="team">
-              <div class="team-badge team-b">HI</div>
-              <span class="team-name">الهلال</span>
+          <div class="upload-drop-zone" id="dropZone">
+            <div class="drop-zone-content">
+              <div class="drop-zone-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+              <p class="drop-zone-text">اسحب الملف الصوتي وأفلته هنا</p>
+              <p class="drop-zone-or">أو</p>
+              <button class="btn btn-primary" id="browseBtn">اختر ملفًا من جهازك</button>
+              <input type="file" id="fileInput" accept="audio/*,.wav,.mp3,.ogg,.flac,.m4a,.aac,.aiff" hidden>
+              <p class="drop-zone-formats">الصيغ المدعومة: WAV, MP3, OGG, FLAC, M4A, AAC, AIFF — الحد الأقصى: ٢٠٠ ميغابايت</p>
             </div>
           </div>
-          <div class="commentator-info">
-            <div class="commentator-avatar">ع</div>
-            <div class="commentator-details">
-              <span class="commentator-label">المعلق</span>
-              <span class="commentator-name">عيسى الحربين</span>
-              <span class="commentator-channel">قناة SSC — البث المباشر</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Overall Score Hero -->
-      <section class="score-hero">
-        <div class="score-hero-main">
-          <div class="score-ring-container">
-            <svg class="score-ring" viewBox="0 0 160 160">
-              <circle class="score-ring-bg" cx="80" cy="80" r="70" fill="none" stroke="#EFEDE2" stroke-width="10"/>
-              <circle class="score-ring-fill" cx="80" cy="80" r="70" fill="none" stroke="#00C17A" stroke-width="10" stroke-linecap="round"
-                stroke-dasharray="439.82" stroke-dashoffset="439.82" transform="rotate(-90 80 80)"/>
-            </svg>
-            <div class="score-ring-value">
-              <span class="score-number">٨٢</span>
-              <span class="score-max">/ ١٠٠</span>
-            </div>
-          </div>
-          <div class="score-hero-text">
-            <h2 class="score-hero-title">التقييم العام</h2>
-            <p class="score-hero-desc">أداء <span class="highlight highlight-green">جيد جدًا</span> مع تميّز واضح في الجانب اللغوي وتغطية الأحداث. يوجد مجال للتحسين في التحليل التكتيكي والتوازن العاطفي.</p>
-            <div class="score-tags">
-              <span class="tag tag-green">اللغة والأسلوب ممتاز</span>
-              <span class="tag tag-amber">التحليل التكتيكي جيد</span>
-              <span class="tag tag-blue">تغطية الأحداث متميزة</span>
-            </div>
-          </div>
-        </div>
-      </section>
+          <div id="fileInfo" style="display:none;"></div>
 
-      <!-- Category Score Cards -->
-      <section class="category-cards">
-        <div class="card score-card">
-          <div class="score-card-header">
-            <div class="score-card-icon" style="background: rgba(0,193,122,0.08); color: #00C17A;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-            </div>
-            <div class="score-card-value">
-              <span class="score-card-number">٨٨</span>
-              <span class="score-card-rating">ممتاز</span>
-            </div>
-          </div>
-          <h3 class="score-card-title">الأداء الصوتي</h3>
-          <p class="score-card-desc">جودة الصوت، التنوع في النبرة، والوضوح</p>
-          <div class="mini-bar"><div class="mini-bar-fill" style="width:88%; background:#00C17A;"></div></div>
+          <button class="btn btn-accent btn-lg" id="analyzeBtn" style="display:none;">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            بدء التحليل
+          </button>
         </div>
 
-        <div class="card score-card">
-          <div class="score-card-header">
-            <div class="score-card-icon" style="background: rgba(0,193,122,0.08); color: #00C17A;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </div>
-            <div class="score-card-value">
-              <span class="score-card-number">٩١</span>
-              <span class="score-card-rating">ممتاز</span>
-            </div>
+        <footer class="page-footer">
+          <div class="footer-content">
+            <img src="Usable/thamanyah.png" alt="ثمانية" class="footer-logo">
+            <span class="footer-text">أداة تحليل المعلقين — ثمانية &copy; ٢٠٢٦</span>
           </div>
-          <h3 class="score-card-title">اللغة والأسلوب</h3>
-          <p class="score-card-desc">الفصاحة، المفردات، والسلامة اللغوية</p>
-          <div class="mini-bar"><div class="mini-bar-fill" style="width:91%; background:#00C17A;"></div></div>
-        </div>
-
-        <div class="card score-card">
-          <div class="score-card-header">
-            <div class="score-card-icon" style="background: rgba(255,188,10,0.12); color: #FFBC0A;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div class="score-card-value">
-              <span class="score-card-number">٧٨</span>
-              <span class="score-card-rating">جيد</span>
-            </div>
-          </div>
-          <h3 class="score-card-title">التحليل التكتيكي</h3>
-          <p class="score-card-desc">فهم اللعب، قراءة المباراة، والمعلومات الفنية</p>
-          <div class="mini-bar"><div class="mini-bar-fill" style="width:78%; background:#FFBC0A;"></div></div>
-        </div>
-
-        <div class="card score-card">
-          <div class="score-card-header">
-            <div class="score-card-icon" style="background: rgba(0,193,122,0.08); color: #00C17A;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </div>
-            <div class="score-card-value">
-              <span class="score-card-number">٨٥</span>
-              <span class="score-card-rating">جيد جدًا</span>
-            </div>
-          </div>
-          <h3 class="score-card-title">تغطية الأحداث</h3>
-          <p class="score-card-desc">المتابعة اللحظية، دقة الوصف، والتوقيت</p>
-          <div class="mini-bar"><div class="mini-bar-fill" style="width:85%; background:#00C17A;"></div></div>
-        </div>
-
-        <div class="card score-card">
-          <div class="score-card-header">
-            <div class="score-card-icon" style="background: rgba(255,188,10,0.12); color: #FFBC0A;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            </div>
-            <div class="score-card-value">
-              <span class="score-card-number">٧٤</span>
-              <span class="score-card-rating">جيد</span>
-            </div>
-          </div>
-          <h3 class="score-card-title">التوازن العاطفي</h3>
-          <p class="score-card-desc">الحياد، إدارة الانفعالات، والموضوعية</p>
-          <div class="mini-bar"><div class="mini-bar-fill" style="width:74%; background:#FFBC0A;"></div></div>
-        </div>
-
-        <div class="card score-card">
-          <div class="score-card-header">
-            <div class="score-card-icon" style="background: rgba(0,114,249,0.08); color: #0072F9;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div class="score-card-value">
-              <span class="score-card-number">٨٠</span>
-              <span class="score-card-rating">جيد جدًا</span>
-            </div>
-          </div>
-          <h3 class="score-card-title">التفاعل مع المشاهد</h3>
-          <p class="score-card-desc">بناء الإثارة، الترفيه، والتواصل الفعّال</p>
-          <div class="mini-bar"><div class="mini-bar-fill" style="width:80%; background:#0072F9;"></div></div>
-        </div>
-      </section>
-
-      <!-- Detailed Breakdown -->
-      <section class="detail-section">
-        <div class="card detail-card">
-          <div class="card-header">
-            <h2 class="card-title">التحليل التفصيلي</h2>
-            <div class="card-tabs">
-              <button class="tab active">جميع المعايير</button>
-              <button class="tab">نقاط القوة</button>
-              <button class="tab">يحتاج تحسين</button>
-            </div>
-          </div>
-
-          <div class="criteria-list">
-            <!-- Group 1: الأداء الصوتي -->
-            <div class="criteria-group">
-              <h3 class="criteria-group-title">
-                <span class="criteria-dot" style="background:#00C17A"></span>
-                الأداء الصوتي
-              </h3>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">وضوح النطق والإلقاء</span>
-                  <span class="criteria-score score-excellent">٩٢</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:92%; background:#00C17A;"></div></div>
-                <p class="criteria-note">نطق واضح وسليم طوال المباراة مع تمييز ممتاز لأسماء اللاعبين</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">التنوع في طبقات الصوت</span>
-                  <span class="criteria-score score-excellent">٨٧</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:87%; background:#00C17A;"></div></div>
-                <p class="criteria-note">تنويع جيد بين الهدوء والحماس بحسب سياق اللعب</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">إيقاع وسرعة الكلام</span>
-                  <span class="criteria-score score-good">٨٤</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:84%; background:#00C17A;"></div></div>
-                <p class="criteria-note">إيقاع مناسب بشكل عام مع بعض التسارع في لحظات الضغط</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">إدارة فترات الصمت</span>
-                  <span class="criteria-score score-good">٨٦</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:86%; background:#00C17A;"></div></div>
-                <p class="criteria-note">استخدام جيد للصمت لإتاحة المجال لصوت الملعب</p>
-              </div>
-            </div>
-
-            <!-- Group 2: اللغة والأسلوب -->
-            <div class="criteria-group">
-              <h3 class="criteria-group-title">
-                <span class="criteria-dot" style="background:#00C17A"></span>
-                اللغة والأسلوب
-              </h3>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">سلامة اللغة العربية</span>
-                  <span class="criteria-score score-excellent">٩٤</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:94%; background:#00C17A;"></div></div>
-                <p class="criteria-note">التزام عالٍ بالفصحى مع أخطاء نحوية نادرة جدًا</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">ثراء المفردات</span>
-                  <span class="criteria-score score-excellent">٩٣</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:93%; background:#00C17A;"></div></div>
-                <p class="criteria-note">تنوع ملحوظ في الألفاظ والتعبيرات مع تجنب التكرار</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">البلاغة والتعبيرات</span>
-                  <span class="criteria-score score-excellent">٩٠</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:90%; background:#00C17A;"></div></div>
-                <p class="criteria-note">استعارات وتشبيهات موفقة تُثري التعليق</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">الأسلوب السردي</span>
-                  <span class="criteria-score score-excellent">٨٨</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:88%; background:#00C17A;"></div></div>
-                <p class="criteria-note">قدرة جيدة على بناء السرد وربط الأحداث بسياق أوسع</p>
-              </div>
-            </div>
-
-            <!-- Group 3: التحليل التكتيكي -->
-            <div class="criteria-group">
-              <h3 class="criteria-group-title">
-                <span class="criteria-dot" style="background:#FFBC0A"></span>
-                التحليل التكتيكي
-              </h3>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">قراءة التشكيلات والخطط</span>
-                  <span class="criteria-score score-good">٨٠</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:80%; background:#FFBC0A;"></div></div>
-                <p class="criteria-note">فهم جيد للتشكيلات لكن مع إغفال بعض التبديلات التكتيكية</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">تفسير القرارات التكتيكية</span>
-                  <span class="criteria-score score-average">٧٥</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:75%; background:#FFBC0A;"></div></div>
-                <p class="criteria-note">تحليل مقبول لقرارات المدربين مع حاجة لمزيد من العمق</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">دقة المعلومات والإحصائيات</span>
-                  <span class="criteria-score score-good">٨١</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:81%; background:#FFBC0A;"></div></div>
-                <p class="criteria-note">معلومات دقيقة في الغالب مع خطأ إحصائي واحد تم تصحيحه</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">الإعداد والتحضير المسبق</span>
-                  <span class="criteria-score score-average">٧٦</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:76%; background:#FFBC0A;"></div></div>
-                <p class="criteria-note">تحضير جيد للمعلومات الأساسية مع نقص في تفاصيل الخلفيات</p>
-              </div>
-            </div>
-
-            <!-- Group 4: تغطية الأحداث -->
-            <div class="criteria-group">
-              <h3 class="criteria-group-title">
-                <span class="criteria-dot" style="background:#00C17A"></span>
-                تغطية الأحداث
-              </h3>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">وصف اللعب لحظة بلحظة</span>
-                  <span class="criteria-score score-excellent">٩٠</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:90%; background:#00C17A;"></div></div>
-                <p class="criteria-note">متابعة دقيقة للكرة وتوصيف واضح لتحركات اللاعبين</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">تعليق الأهداف واللحظات الحاسمة</span>
-                  <span class="criteria-score score-excellent">٨٩</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:89%; background:#00C17A;"></div></div>
-                <p class="criteria-note">ردود فعل حماسية ومناسبة على الأهداف مع وصف تفصيلي</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">التزامن مع الصورة</span>
-                  <span class="criteria-score score-good">٨٢</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:82%; background:#00C17A;"></div></div>
-                <p class="criteria-note">تناغم جيد بين التعليق والصورة المعروضة</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">تغطية الإعادات</span>
-                  <span class="criteria-score score-good">٨٠</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:80%; background:#00C17A;"></div></div>
-                <p class="criteria-note">استغلال جيد للإعادات لتقديم تحليل إضافي</p>
-              </div>
-            </div>
-
-            <!-- Group 5: التوازن العاطفي -->
-            <div class="criteria-group">
-              <h3 class="criteria-group-title">
-                <span class="criteria-dot" style="background:#FFBC0A"></span>
-                التوازن العاطفي
-              </h3>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">الحياد وعدم الانحياز</span>
-                  <span class="criteria-score score-average">٧٠</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:70%; background:#FF9172;"></div></div>
-                <p class="criteria-note">ميل طفيف نحو الفريق المضيف في بعض المواقف</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">التعامل مع قرارات الحكم</span>
-                  <span class="criteria-score score-average">٧٢</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:72%; background:#FF9172;"></div></div>
-                <p class="criteria-note">بعض التعليقات الاعتراضية على قرارات الحكم تحتاج ضبطًا</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">إدارة الانفعالات</span>
-                  <span class="criteria-score score-average">٧٦</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:76%; background:#FFBC0A;"></div></div>
-                <p class="criteria-note">حماس مناسب للأهداف لكن مع مبالغة أحيانًا في لحظات عادية</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">الاحترافية في المواقف الصعبة</span>
-                  <span class="criteria-score score-good">٨٠</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:80%; background:#00C17A;"></div></div>
-                <p class="criteria-note">تعامل ناضج مع حالة الإصابة ولحظات التوتر بين اللاعبين</p>
-              </div>
-            </div>
-
-            <!-- Group 6: التفاعل مع المشاهد -->
-            <div class="criteria-group">
-              <h3 class="criteria-group-title">
-                <span class="criteria-dot" style="background:#0072F9"></span>
-                التفاعل مع المشاهد
-              </h3>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">بناء الإثارة والتشويق</span>
-                  <span class="criteria-score score-good">٨٣</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:83%; background:#0072F9;"></div></div>
-                <p class="criteria-note">قدرة جيدة على رفع حماس المشاهد في اللحظات المناسبة</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">إضافة قيمة معرفية</span>
-                  <span class="criteria-score score-good">٨١</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:81%; background:#0072F9;"></div></div>
-                <p class="criteria-note">معلومات مفيدة عن اللاعبين وتاريخ المواجهات</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">التواصل مع المحلل</span>
-                  <span class="criteria-score score-average">٧٥</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:75%; background:#FFBC0A;"></div></div>
-                <p class="criteria-note">حوار مقبول مع المحلل المرافق لكن مع مقاطعات أحيانًا</p>
-              </div>
-              <div class="criteria-item">
-                <div class="criteria-info">
-                  <span class="criteria-name">الخاتمة والتلخيص</span>
-                  <span class="criteria-score score-good">٨٢</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width:82%; background:#0072F9;"></div></div>
-                <p class="criteria-note">تلخيص جيد لأحداث المباراة مع إبراز اللحظات المحورية</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Timeline + Key Moments -->
-      <section class="two-col-section">
-        <div class="card moments-card">
-          <h2 class="card-title">اللحظات المحورية</h2>
-          <div class="moments-list">
-            <div class="moment">
-              <div class="moment-time">١٢'</div>
-              <div class="moment-content">
-                <div class="moment-badge badge-green">تعليق مميز</div>
-                <p class="moment-text">وصف رائع لهجمة مرتدة سريعة مع بناء تصاعدي للإثارة</p>
-              </div>
-            </div>
-            <div class="moment">
-              <div class="moment-time">٢٣'</div>
-              <div class="moment-content">
-                <div class="moment-badge badge-green">تعليق مميز</div>
-                <p class="moment-text">تعليق بليغ على الهدف الأول: «من رحم المعاناة يولد الإبداع»</p>
-              </div>
-            </div>
-            <div class="moment">
-              <div class="moment-time">٣٧'</div>
-              <div class="moment-content">
-                <div class="moment-badge badge-amber">ملاحظة</div>
-                <p class="moment-text">تأخر في ذكر اسم اللاعب المنفّذ للركنية</p>
-              </div>
-            </div>
-            <div class="moment">
-              <div class="moment-time">٥٥'</div>
-              <div class="moment-content">
-                <div class="moment-badge badge-red">يحتاج تحسين</div>
-                <p class="moment-text">انحياز ملحوظ بعد قرار حكم الفيديو ضد الفريق المضيف</p>
-              </div>
-            </div>
-            <div class="moment">
-              <div class="moment-time">٦٧'</div>
-              <div class="moment-content">
-                <div class="moment-badge badge-green">تعليق مميز</div>
-                <p class="moment-text">تحليل ممتاز لتأثير التبديلات على مجريات الشوط الثاني</p>
-              </div>
-            </div>
-            <div class="moment">
-              <div class="moment-time">٧٨'</div>
-              <div class="moment-content">
-                <div class="moment-badge badge-green">تعليق مميز</div>
-                <p class="moment-text">تعليق مؤثر على هدف الفوز: «هذا هو سحر كرة القدم»</p>
-              </div>
-            </div>
-            <div class="moment">
-              <div class="moment-time">٨٩'</div>
-              <div class="moment-content">
-                <div class="moment-badge badge-amber">ملاحظة</div>
-                <p class="moment-text">إفراط في التكرار خلال الدقائق الأخيرة من المباراة</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="side-col">
-          <!-- Strengths -->
-          <div class="card strengths-card">
-            <h2 class="card-title">نقاط القوة</h2>
-            <ul class="strengths-list">
-              <li>
-                <span class="strength-icon">&#10003;</span>
-                <span>ثراء لغوي واضح وتعبيرات بلاغية مميزة</span>
-              </li>
-              <li>
-                <span class="strength-icon">&#10003;</span>
-                <span>وضوح صوتي عالٍ مع تنوع جيد في النبرات</span>
-              </li>
-              <li>
-                <span class="strength-icon">&#10003;</span>
-                <span>متابعة دقيقة للكرة ووصف تفصيلي للأحداث</span>
-              </li>
-              <li>
-                <span class="strength-icon">&#10003;</span>
-                <span>تعليقات مؤثرة على الأهداف تبقى في الذاكرة</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Improvements -->
-          <div class="card improvements-card">
-            <h2 class="card-title">مجالات التحسين</h2>
-            <ul class="improvements-list">
-              <li>
-                <span class="improvement-icon">!</span>
-                <span>تعزيز الحياد خصوصًا في القرارات التحكيمية</span>
-              </li>
-              <li>
-                <span class="improvement-icon">!</span>
-                <span>تعميق التحليل التكتيكي وقراءة تغييرات المدربين</span>
-              </li>
-              <li>
-                <span class="improvement-icon">!</span>
-                <span>تجنب التكرار في الدقائق الأخيرة من المباريات</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Audio Player -->
-          <div class="card audio-card">
-            <h2 class="card-title">التسجيل الصوتي</h2>
-            <div class="audio-player">
-              <div class="audio-wave">
-                <div class="wave-bar" style="height:30%"></div>
-                <div class="wave-bar" style="height:50%"></div>
-                <div class="wave-bar" style="height:70%"></div>
-                <div class="wave-bar" style="height:40%"></div>
-                <div class="wave-bar" style="height:90%"></div>
-                <div class="wave-bar" style="height:60%"></div>
-                <div class="wave-bar" style="height:80%"></div>
-                <div class="wave-bar" style="height:45%"></div>
-                <div class="wave-bar" style="height:65%"></div>
-                <div class="wave-bar" style="height:35%"></div>
-                <div class="wave-bar" style="height:55%"></div>
-                <div class="wave-bar active" style="height:75%"></div>
-                <div class="wave-bar inactive" style="height:50%"></div>
-                <div class="wave-bar inactive" style="height:85%"></div>
-                <div class="wave-bar inactive" style="height:40%"></div>
-                <div class="wave-bar inactive" style="height:60%"></div>
-                <div class="wave-bar inactive" style="height:70%"></div>
-                <div class="wave-bar inactive" style="height:30%"></div>
-                <div class="wave-bar inactive" style="height:50%"></div>
-                <div class="wave-bar inactive" style="height:45%"></div>
-                <div class="wave-bar inactive" style="height:65%"></div>
-                <div class="wave-bar inactive" style="height:80%"></div>
-                <div class="wave-bar inactive" style="height:55%"></div>
-                <div class="wave-bar inactive" style="height:40%"></div>
-              </div>
-              <div class="audio-controls">
-                <button class="play-btn" id="playBtn">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </button>
-                <div class="audio-time">
-                  <span class="time-current">٤٥:١٢</span>
-                  <div class="audio-progress">
-                    <div class="audio-progress-fill" style="width:48%;"></div>
-                  </div>
-                  <span class="time-total">١:٣٤:٢٠</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="page-footer">
-        <div class="footer-content">
-          <img src="Usable/thamanyah.png" alt="ثمانية" class="footer-logo">
-          <span class="footer-text">أداة تحليل المعلقين — ثمانية &copy; ٢٠٢٦</span>
-        </div>
-      </footer>
-
+        </footer>
+      </div>
     </div>
+
+    <!-- ═══════════ VIEW: LOADING ═══════════ -->
+    <div class="view view-loading">
+      <div class="content-scroll">
+        <div class="loading-container">
+          <div class="loading-visual">
+            <div class="loading-pulse-ring"></div>
+            <div class="loading-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="loading-timer-display">
+            <span id="loadingTimer">٠:٠٠</span>
+          </div>
+
+          <p class="loading-message" id="loadingMessage">جارٍ تجهيز الملف الصوتي...</p>
+
+          <div class="loading-progress-bar">
+            <div class="loading-progress-fill" id="loadingProgressFill"></div>
+          </div>
+
+          <div class="loading-steps" id="loadingSteps">
+            <div class="loading-step active">
+              <div class="step-dot"></div>
+              <span class="step-label">تجهيز الملف</span>
+            </div>
+            <div class="loading-step">
+              <div class="step-dot"></div>
+              <span class="step-label">الإرسال</span>
+            </div>
+            <div class="loading-step">
+              <div class="step-dot"></div>
+              <span class="step-label">التحليل</span>
+            </div>
+            <div class="loading-step">
+              <div class="step-dot"></div>
+              <span class="step-label">إنشاء التقرير</span>
+            </div>
+          </div>
+
+          <button class="btn btn-secondary" onclick="cancelAnalysis()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ VIEW: REPORT ═══════════ -->
+    <div class="view view-report">
+      <div class="content-scroll">
+        <div class="report-content">
+
+          <!-- Match Banner -->
+          <section class="match-banner">
+            <div class="match-banner-inner">
+              <div class="match-teams">
+                <div class="team">
+                  <div class="team-badge team-a" id="rTeamABadge"></div>
+                  <span class="team-name" id="rTeamAName"></span>
+                </div>
+                <div class="match-score-display">
+                  <span class="match-result" id="rMatchScore"></span>
+                  <span class="match-label" id="rMatchLabel"></span>
+                  <span class="match-date" id="rMatchDate"></span>
+                </div>
+                <div class="team">
+                  <div class="team-badge team-b" id="rTeamBBadge"></div>
+                  <span class="team-name" id="rTeamBName"></span>
+                </div>
+              </div>
+              <div class="commentator-info">
+                <div class="commentator-avatar" id="rCommentatorAvatar"></div>
+                <div class="commentator-details">
+                  <span class="commentator-label">المعلق</span>
+                  <span class="commentator-name" id="rCommentatorName"></span>
+                  <span class="commentator-channel" id="rCommentatorChannel"></span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Overall Score -->
+          <section class="score-hero">
+            <div class="score-hero-main">
+              <div class="score-ring-container">
+                <svg class="score-ring" viewBox="0 0 160 160">
+                  <circle class="score-ring-bg" cx="80" cy="80" r="70" fill="none" stroke="#EFEDE2" stroke-width="10"/>
+                  <circle class="score-ring-fill" cx="80" cy="80" r="70" fill="none" stroke="#00C17A" stroke-width="10" stroke-linecap="round"
+                    stroke-dasharray="439.82" stroke-dashoffset="439.82" transform="rotate(-90 80 80)"/>
+                </svg>
+                <div class="score-ring-value">
+                  <span class="score-number" id="rOverallScore">٠</span>
+                  <span class="score-max">/ ١٠٠</span>
+                </div>
+              </div>
+              <div class="score-hero-text">
+                <h2 class="score-hero-title">التقييم العام</h2>
+                <p class="score-hero-desc" id="rOverallSummary"></p>
+                <div class="score-tags" id="rOverallTags"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Category Cards (dynamically populated) -->
+          <section class="category-cards" id="rCategoryCards"></section>
+
+          <!-- Detailed Breakdown -->
+          <section class="detail-section">
+            <div class="card detail-card">
+              <div class="card-header">
+                <h2 class="card-title">التحليل التفصيلي</h2>
+                <div class="card-tabs">
+                  <button class="tab active">جميع المعايير</button>
+                  <button class="tab">نقاط القوة</button>
+                  <button class="tab">يحتاج تحسين</button>
+                </div>
+              </div>
+              <div class="criteria-list" id="rCriteriaList"></div>
+            </div>
+          </section>
+
+          <!-- Transcription -->
+          <section class="transcription-section" id="rTranscriptionSection" style="display:none;">
+            <div class="card transcription-card">
+              <div class="card-header">
+                <h2 class="card-title">التفريغ النصي الكامل</h2>
+                <button class="btn btn-secondary btn-sm" id="transcriptionToggle" onclick="toggleTranscription()">عرض الكل</button>
+              </div>
+              <div class="transcription-content" id="rTranscriptionContent">
+                <div class="transcription-list" id="rTranscriptionList"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Key Moments + Side Column -->
+          <section class="two-col-section">
+            <div class="card moments-card">
+              <h2 class="card-title">اللحظات المحورية</h2>
+              <div class="moments-list" id="rMomentsList"></div>
+            </div>
+            <div class="side-col">
+              <div class="card strengths-card">
+                <h2 class="card-title">نقاط القوة</h2>
+                <ul class="strengths-list" id="rStrengthsList"></ul>
+              </div>
+              <div class="card improvements-card">
+                <h2 class="card-title">مجالات التحسين</h2>
+                <ul class="improvements-list" id="rImprovementsList"></ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Footer -->
+          <footer class="page-footer">
+            <div class="footer-content">
+              <img src="Usable/thamanyah.png" alt="ثمانية" class="footer-logo">
+              <span class="footer-text">أداة تحليل المعلقين — ثمانية &copy; ٢٠٢٦</span>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
   </main>
 
-  <script>
-    // Sidebar toggle for mobile
-    const sidebar = document.getElementById('sidebar');
-    const menuToggle = document.getElementById('menuToggle');
-    menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
-    document.querySelector('.main-content').addEventListener('click', () => {
-      if (sidebar.classList.contains('open')) sidebar.classList.remove('open');
-    });
+  <!-- ═══════════ ERROR MODAL ═══════════ -->
+  <div class="error-modal" id="errorModal">
+    <div class="error-modal-content">
+      <div class="error-modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      </div>
+      <h3 class="error-modal-title" id="errorTitle">خطأ</h3>
+      <p class="error-modal-message" id="errorMessage"></p>
+      <button class="btn btn-primary" id="errorClose">حسنًا</button>
+    </div>
+  </div>
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Animate score ring
-      const ring = document.querySelector('.score-ring-fill');
-      if (ring) {
-        const total = 2 * Math.PI * 70;
-        const score = 82;
-        const target = total - (total * score / 100);
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            ring.style.transition = 'stroke-dashoffset 1.5s ease-out';
-            ring.style.strokeDashoffset = target;
-          });
-        });
-      }
-
-      // Animate progress bars
-      document.querySelectorAll('.progress-fill, .mini-bar-fill').forEach(bar => {
-        const w = bar.style.width;
-        bar.style.width = '0%';
-        bar.style.transition = 'width 1s ease-out';
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => { bar.style.width = w; });
-        });
-      });
-
-      // Tab switching
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-        });
-      });
-
-      // Nav item switching
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.querySelectorAll('.nav-item').forEach(i => {
-            i.classList.remove('active');
-            i.classList.remove('selected');
-          });
-          item.classList.add('active');
-        });
-      });
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
