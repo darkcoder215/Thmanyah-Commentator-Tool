@@ -28,6 +28,8 @@ const CATEGORY_ICONS = {
   'تغطية الأحداث': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
   'التوازن العاطفي': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
   'التفاعل مع المشاهد': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  'المعرفة الرياضية': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  'الإبداع والتميز': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
 };
 
 // ── State ──
@@ -44,9 +46,8 @@ let state = {
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-function toArabicNum(n) {
-  const arabicDigits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-  return String(n).replace(/\d/g, d => arabicDigits[d]);
+function formatNum(n) {
+  return String(n);
 }
 
 function getScoreColor(score) {
@@ -259,7 +260,7 @@ function updateTimerDisplay() {
   if (!el) return;
   const mins = Math.floor(state.timerSeconds / 60);
   const secs = state.timerSeconds % 60;
-  el.textContent = `${toArabicNum(mins)}:${toArabicNum(String(secs).padStart(2, '0'))}`;
+  el.textContent = `${formatNum(mins)}:${formatNum(String(secs).padStart(2, '0'))}`;
 }
 
 function updateProgress(step, total, message) {
@@ -421,146 +422,71 @@ function buildAnalysisPrompt() {
 
 استمع بعناية شديدة إلى التسجيل الصوتي المرفق وقم بالمهام التالية:
 
-١. حدد معلومات المباراة من سياق التعليق: اسما الفريقين، النتيجة، اسم البطولة والجولة، والتاريخ إن ذُكر.
-٢. حدد اسم المعلق والقناة الناقلة.
-٣. أنشئ نصًا كاملًا (تفريغ) للتعليق مع التوقيت الزمني الدقيق بالدقائق وتحديد هوية كل متحدث (معلق رئيسي، محلل، مراسل، إلخ).
-٤. قيّم الأداء عبر ٦ محاور رئيسية، كل محور يحتوي على ٤ معايير فرعية بدرجة من ٠ إلى ١٠٠:
+1. حدد معلومات المباراة من سياق التعليق: اسما الفريقين، النتيجة، اسم البطولة والجولة، والتاريخ إن ذُكر.
+2. حدد اسم المعلق والقناة الناقلة.
+3. أنشئ نصًا كاملًا (تفريغ) للتعليق مع التوقيت الزمني الدقيق بالدقائق وتحديد هوية كل متحدث (معلق رئيسي، محلل، مراسل، إلخ).
+4. قيّم الأداء عبر 8 محاور رئيسية، كل محور يحتوي على 4 معايير فرعية بدرجة من 0 إلى 100:
 
-   المحور ١ — الأداء الصوتي:
-   - وضوح النطق والإلقاء
-   - التنوع في طبقات الصوت
-   - إيقاع وسرعة الكلام
-   - إدارة فترات الصمت
+   المحور 1 — الأداء الصوتي: وضوح النطق والإلقاء، التنوع في طبقات الصوت، إيقاع وسرعة الكلام، إدارة فترات الصمت
+   المحور 2 — اللغة والأسلوب: سلامة اللغة العربية، ثراء المفردات، البلاغة والتعبيرات، الأسلوب السردي
+   المحور 3 — التحليل التكتيكي: قراءة التشكيلات والخطط، تفسير القرارات التكتيكية، دقة المعلومات والإحصائيات، الإعداد والتحضير المسبق
+   المحور 4 — تغطية الأحداث: وصف اللعب لحظة بلحظة، تعليق الأهداف واللحظات الحاسمة، التزامن مع الصورة، تغطية الإعادات
+   المحور 5 — التوازن العاطفي: الحياد وعدم الانحياز، التعامل مع قرارات الحكم، إدارة الانفعالات، الاحترافية في المواقف الصعبة
+   المحور 6 — التفاعل مع المشاهد: بناء الإثارة والتشويق، إضافة قيمة معرفية، التواصل مع المحلل، الخاتمة والتلخيص
+   المحور 7 — المعرفة الرياضية: معرفة تاريخ اللاعبين، الإلمام بسياق البطولة، المراجع التاريخية والمقارنات، معرفة القوانين واللوائح
+   المحور 8 — الإبداع والتميز: أسلوب تعليق فريد، عبارات وتعبيرات لا تُنسى، القدرة على السرد القصصي، اتساق الهوية الشخصية
 
-   المحور ٢ — اللغة والأسلوب:
-   - سلامة اللغة العربية
-   - ثراء المفردات
-   - البلاغة والتعبيرات
-   - الأسلوب السردي
+5. حدد أبرز اللحظات المحورية في التعليق مع التوقيت.
+6. اذكر 3-5 نقاط قوة و2-4 مجالات تحتاج تحسين.
+7. احسب الدرجة الكلية كمعدل مرجح لدرجات المحاور.
+8. استخرج إحصائيات الأداء: عدد الكلمات التقريبي في الدقيقة، إجمالي الكلمات، نسبة الصمت، عدد المفردات الفريدة، نسبة التكرار، عدد الأخطاء المعلوماتية، عدد التفاعلات مع المحلل.
+9. اقتبس 3-4 من أبرز العبارات المميزة التي قالها المعلق حرفيًا مع التوقيت.
+10. قدّر مستوى الحماس التعليقي عبر المباراة كمصفوفة من 0-100 لكل 5 دقائق.
 
-   المحور ٣ — التحليل التكتيكي:
-   - قراءة التشكيلات والخطط
-   - تفسير القرارات التكتيكية
-   - دقة المعلومات والإحصائيات
-   - الإعداد والتحضير المسبق
-
-   المحور ٤ — تغطية الأحداث:
-   - وصف اللعب لحظة بلحظة
-   - تعليق الأهداف واللحظات الحاسمة
-   - التزامن مع الصورة
-   - تغطية الإعادات
-
-   المحور ٥ — التوازن العاطفي:
-   - الحياد وعدم الانحياز
-   - التعامل مع قرارات الحكم
-   - إدارة الانفعالات
-   - الاحترافية في المواقف الصعبة
-
-   المحور ٦ — التفاعل مع المشاهد:
-   - بناء الإثارة والتشويق
-   - إضافة قيمة معرفية
-   - التواصل مع المحلل
-   - الخاتمة والتلخيص
-
-٥. حدد أبرز اللحظات المحورية في التعليق مع التوقيت.
-٦. اذكر ٣-٥ نقاط قوة و٢-٤ مجالات تحتاج تحسين.
-٧. احسب الدرجة الكلية كمعدل مرجح لدرجات المحاور.
-
-مهم جدًا: أعد جميع النتائج حصريًا بصيغة JSON صالحة (بدون أي نص قبلها أو بعدها، وبدون علامات markdown مثل \`\`\`). استخدم الهيكل التالي بالضبط:
+مهم جدًا: استخدم الأرقام الإنجليزية (0-9) وليس العربية. أعد جميع النتائج حصريًا بصيغة JSON صالحة (بدون أي نص قبلها أو بعدها، وبدون علامات markdown). استخدم الهيكل التالي بالضبط:
 
 {
-  "match_info": {
-    "team_a": "اسم الفريق الأول أو غير محدد",
-    "team_b": "اسم الفريق الثاني أو غير محدد",
-    "score": "X - X أو غير محدد",
-    "competition": "اسم البطولة أو غير محدد",
-    "date": "التاريخ أو غير محدد"
-  },
-  "commentator": {
-    "name": "اسم المعلق أو غير محدد",
-    "channel": "القناة أو غير محدد"
-  },
-  "overall": {
-    "score": 82,
-    "rating": "جيد جدًا",
-    "summary": "ملخص مختصر للأداء في ٢-٣ جمل"
-  },
-  "tags": ["وصف قصير لنقطة بارزة ١", "وصف قصير ٢", "وصف قصير ٣"],
+  "match_info": {"team_a": "...", "team_b": "...", "score": "X - X", "competition": "...", "date": "..."},
+  "commentator": {"name": "...", "channel": "..."},
+  "overall": {"score": 79, "rating": "جيد جدًا", "summary": "ملخص الأداء في 2-3 جمل"},
+  "tags": ["وصف قصير 1", "وصف قصير 2", "وصف قصير 3"],
   "categories": [
-    {
-      "name": "الأداء الصوتي",
-      "score": 88,
-      "rating": "ممتاز",
-      "criteria": [
-        {"name": "وضوح النطق والإلقاء", "score": 92, "note": "ملاحظة تفصيلية عن الأداء"},
-        {"name": "التنوع في طبقات الصوت", "score": 87, "note": "..."},
-        {"name": "إيقاع وسرعة الكلام", "score": 84, "note": "..."},
-        {"name": "إدارة فترات الصمت", "score": 86, "note": "..."}
-      ]
-    },
-    {
-      "name": "اللغة والأسلوب",
-      "score": 91,
-      "rating": "ممتاز",
-      "criteria": [
-        {"name": "سلامة اللغة العربية", "score": 94, "note": "..."},
-        {"name": "ثراء المفردات", "score": 93, "note": "..."},
-        {"name": "البلاغة والتعبيرات", "score": 90, "note": "..."},
-        {"name": "الأسلوب السردي", "score": 88, "note": "..."}
-      ]
-    },
-    {
-      "name": "التحليل التكتيكي",
-      "score": 78,
-      "rating": "جيد",
-      "criteria": [
-        {"name": "قراءة التشكيلات والخطط", "score": 80, "note": "..."},
-        {"name": "تفسير القرارات التكتيكية", "score": 75, "note": "..."},
-        {"name": "دقة المعلومات والإحصائيات", "score": 81, "note": "..."},
-        {"name": "الإعداد والتحضير المسبق", "score": 76, "note": "..."}
-      ]
-    },
-    {
-      "name": "تغطية الأحداث",
-      "score": 85,
-      "rating": "جيد جدًا",
-      "criteria": [
-        {"name": "وصف اللعب لحظة بلحظة", "score": 90, "note": "..."},
-        {"name": "تعليق الأهداف واللحظات الحاسمة", "score": 89, "note": "..."},
-        {"name": "التزامن مع الصورة", "score": 82, "note": "..."},
-        {"name": "تغطية الإعادات", "score": 80, "note": "..."}
-      ]
-    },
-    {
-      "name": "التوازن العاطفي",
-      "score": 74,
-      "rating": "جيد",
-      "criteria": [
-        {"name": "الحياد وعدم الانحياز", "score": 70, "note": "..."},
-        {"name": "التعامل مع قرارات الحكم", "score": 72, "note": "..."},
-        {"name": "إدارة الانفعالات", "score": 76, "note": "..."},
-        {"name": "الاحترافية في المواقف الصعبة", "score": 80, "note": "..."}
-      ]
-    },
-    {
-      "name": "التفاعل مع المشاهد",
-      "score": 80,
-      "rating": "جيد جدًا",
-      "criteria": [
-        {"name": "بناء الإثارة والتشويق", "score": 83, "note": "..."},
-        {"name": "إضافة قيمة معرفية", "score": 81, "note": "..."},
-        {"name": "التواصل مع المحلل", "score": 75, "note": "..."},
-        {"name": "الخاتمة والتلخيص", "score": 82, "note": "..."}
-      ]
-    }
+    {"name": "الأداء الصوتي", "score": 85, "rating": "جيد جدًا", "criteria": [
+      {"name": "وضوح النطق والإلقاء", "score": 88, "note": "ملاحظة تفصيلية"},
+      {"name": "التنوع في طبقات الصوت", "score": 84, "note": "..."},
+      {"name": "إيقاع وسرعة الكلام", "score": 82, "note": "..."},
+      {"name": "إدارة فترات الصمت", "score": 80, "note": "..."}
+    ]},
+    {"name": "اللغة والأسلوب", "score": 82, "rating": "جيد جدًا", "criteria": [...]},
+    {"name": "التحليل التكتيكي", "score": 71, "rating": "جيد", "criteria": [...]},
+    {"name": "تغطية الأحداث", "score": 88, "rating": "ممتاز", "criteria": [...]},
+    {"name": "التوازن العاطفي", "score": 65, "rating": "مقبول", "criteria": [...]},
+    {"name": "التفاعل مع المشاهد", "score": 83, "rating": "جيد جدًا", "criteria": [...]},
+    {"name": "المعرفة الرياضية", "score": 77, "rating": "جيد", "criteria": [...]},
+    {"name": "الإبداع والتميز", "score": 80, "rating": "جيد جدًا", "criteria": [...]}
   ],
+  "performance_stats": {
+    "words_per_minute": 142,
+    "total_words": 12847,
+    "silence_percentage": 18,
+    "unique_vocabulary": 1243,
+    "repetition_rate": 7.2,
+    "factual_errors": 2,
+    "analyst_interactions": 14,
+    "peak_excitement_count": 8
+  },
+  "notable_quotes": [
+    {"time": "23'", "text": "اقتباس حرفي مميز من المعلق", "context": "سياق الاقتباس"},
+    {"time": "67'", "text": "...", "context": "..."}
+  ],
+  "excitement_timeline": [60, 45, 70, 80, 55, 90, 40, 65, 75, 85, 95, 70, 80, 60, 50, 88, 92, 45],
   "key_moments": [
-    {"time": "١٢'", "type": "excellent", "description": "وصف اللحظة"},
-    {"time": "٥٥'", "type": "note", "description": "..."},
-    {"time": "٧٨'", "type": "needs_improvement", "description": "..."}
+    {"time": "12'", "type": "excellent", "description": "وصف اللحظة"},
+    {"time": "55'", "type": "note", "description": "..."},
+    {"time": "78'", "type": "needs_improvement", "description": "..."}
   ],
-  "strengths": ["نقطة قوة ١", "نقطة قوة ٢", "نقطة قوة ٣"],
-  "improvements": ["مجال تحسين ١", "مجال تحسين ٢"],
+  "strengths": ["نقطة قوة 1", "نقطة قوة 2", "نقطة قوة 3"],
+  "improvements": ["مجال تحسين 1", "مجال تحسين 2"],
   "transcription": [
     {"time": "00:00", "speaker": "المعلق", "text": "نص الكلام"},
     {"time": "00:30", "speaker": "المحلل", "text": "نص الكلام"}
@@ -625,6 +551,9 @@ function validateReport(data) {
     strengths: Array.isArray(data.strengths) ? data.strengths : [],
     improvements: Array.isArray(data.improvements) ? data.improvements : [],
     transcription: Array.isArray(data.transcription) ? data.transcription : [],
+    performance_stats: data.performance_stats || null,
+    notable_quotes: Array.isArray(data.notable_quotes) ? data.notable_quotes : [],
+    excitement_timeline: Array.isArray(data.excitement_timeline) ? data.excitement_timeline : [],
   };
 
   // Validate categories
@@ -658,7 +587,11 @@ function populateReport(data) {
   populateMatchBanner(data);
   populateOverallScore(data);
   populateCategoryCards(data);
+  populatePerformanceStats(data);
   populateDetailedBreakdown(data);
+  populateRadarChart(data);
+  populateExcitementTimeline(data);
+  populateNotableQuotes(data);
   populateTranscription(data);
   populateKeyMoments(data);
   populateStrengthsAndImprovements(data);
@@ -696,7 +629,7 @@ function populateOverallScore(data) {
   const summaryEl = document.getElementById('rOverallSummary');
   const tagsContainer = document.getElementById('rOverallTags');
 
-  if (scoreNum) scoreNum.textContent = toArabicNum(o.score);
+  if (scoreNum) scoreNum.textContent = formatNum(o.score);
   if (summaryEl) {
     const ratingHtml = `<span class="highlight highlight-green">${o.rating}</span>`;
     summaryEl.innerHTML = `أداء ${ratingHtml} — ${o.summary}`;
@@ -731,7 +664,7 @@ function populateCategoryCards(data) {
           ${icon}
         </div>
         <div class="score-card-value">
-          <span class="score-card-number">${toArabicNum(cat.score)}</span>
+          <span class="score-card-number">${formatNum(cat.score)}</span>
           <span class="score-card-rating">${cat.rating}</span>
         </div>
       </div>
@@ -766,7 +699,7 @@ function populateDetailedBreakdown(data) {
         <div class="criteria-item">
           <div class="criteria-info">
             <span class="criteria-name">${cr.name}</span>
-            <span class="criteria-score ${crClass}">${toArabicNum(cr.score)}</span>
+            <span class="criteria-score ${crClass}">${formatNum(cr.score)}</span>
           </div>
           <div class="progress-bar"><div class="progress-fill" style="width:${cr.score}%; background:${crColor};"></div></div>
           <p class="criteria-note">${cr.note}</p>
@@ -857,6 +790,108 @@ function populateStrengthsAndImprovements(data) {
       `<li><span class="improvement-icon">!</span><span>${s}</span></li>`
     ).join('');
   }
+}
+
+// ── New Sections: Stats, Radar, Excitement, Quotes ──
+function populatePerformanceStats(data) {
+  const container = document.getElementById('rPerformanceStats');
+  if (!container || !data.performance_stats) { if (container) container.closest('.stats-section')?.remove(); return; }
+  const s = data.performance_stats;
+  const stats = [
+    { label: 'كلمة / دقيقة', value: s.words_per_minute || '—', icon: 'speed' },
+    { label: 'إجمالي الكلمات', value: s.total_words ? s.total_words.toLocaleString() : '—', icon: 'words' },
+    { label: 'نسبة الصمت', value: s.silence_percentage != null ? s.silence_percentage + '%' : '—', icon: 'silence' },
+    { label: 'مفردات فريدة', value: s.unique_vocabulary ? s.unique_vocabulary.toLocaleString() : '—', icon: 'vocab' },
+    { label: 'نسبة التكرار', value: s.repetition_rate != null ? s.repetition_rate + '%' : '—', icon: 'repeat' },
+    { label: 'أخطاء معلوماتية', value: s.factual_errors ?? '—', icon: 'errors' },
+    { label: 'تفاعلات مع المحلل', value: s.analyst_interactions ?? '—', icon: 'interact' },
+    { label: 'لحظات ذروة الحماس', value: s.peak_excitement_count ?? '—', icon: 'peak' },
+  ];
+  container.innerHTML = stats.map(st => `
+    <div class="stat-card">
+      <span class="stat-value" data-count="${parseFloat(String(st.value).replace(/[^0-9.]/g,'')) || 0}">${st.value}</span>
+      <span class="stat-label">${st.label}</span>
+    </div>
+  `).join('');
+}
+
+function populateRadarChart(data) {
+  const container = document.getElementById('rRadarChart');
+  if (!container || !data.categories || data.categories.length < 6) return;
+  const cats = data.categories;
+  const n = cats.length;
+  const cx = 150, cy = 150, maxR = 120;
+  const angleStep = (2 * Math.PI) / n;
+
+  // Build grid
+  let gridSvg = '';
+  [0.25, 0.5, 0.75, 1].forEach(scale => {
+    let pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = angleStep * i - Math.PI / 2;
+      pts.push(`${cx + maxR * scale * Math.cos(a)},${cy + maxR * scale * Math.sin(a)}`);
+    }
+    gridSvg += `<polygon points="${pts.join(' ')}" fill="none" stroke="#EFEDE2" stroke-width="1"/>`;
+  });
+  // Axes
+  for (let i = 0; i < n; i++) {
+    const a = angleStep * i - Math.PI / 2;
+    gridSvg += `<line x1="${cx}" y1="${cy}" x2="${cx + maxR * Math.cos(a)}" y2="${cy + maxR * Math.sin(a)}" stroke="#EFEDE2" stroke-width="1"/>`;
+  }
+  // Data polygon
+  let dataPts = [];
+  for (let i = 0; i < n; i++) {
+    const a = angleStep * i - Math.PI / 2;
+    const r = maxR * (cats[i].score / 100);
+    dataPts.push(`${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`);
+  }
+  const dataPolygon = `<polygon points="${dataPts.join(' ')}" fill="rgba(0,193,122,0.15)" stroke="#00C17A" stroke-width="2.5" class="radar-polygon"/>`;
+  // Dots + labels
+  let dotsSvg = '';
+  for (let i = 0; i < n; i++) {
+    const a = angleStep * i - Math.PI / 2;
+    const r = maxR * (cats[i].score / 100);
+    dotsSvg += `<circle cx="${cx + r * Math.cos(a)}" cy="${cy + r * Math.sin(a)}" r="4" fill="#00C17A"/>`;
+    const lr = maxR + 22;
+    const lx = cx + lr * Math.cos(a);
+    const ly = cy + lr * Math.sin(a);
+    dotsSvg += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="#333">${cats[i].name.split(' ')[0]}</text>`;
+    dotsSvg += `<text x="${lx}" y="${ly + 14}" text-anchor="middle" dominant-baseline="middle" font-size="10" font-weight="600" fill="#00C17A">${cats[i].score}</text>`;
+  }
+  container.innerHTML = `<svg viewBox="0 0 300 300" class="radar-svg">${gridSvg}${dataPolygon}${dotsSvg}</svg>`;
+}
+
+function populateExcitementTimeline(data) {
+  const container = document.getElementById('rExcitementBars');
+  if (!container || !data.excitement_timeline || data.excitement_timeline.length === 0) {
+    const section = document.getElementById('rExcitementSection');
+    if (section) section.remove();
+    return;
+  }
+  container.innerHTML = data.excitement_timeline.map((v, i) => {
+    const color = v >= 85 ? '#00C17A' : v >= 70 ? '#FFBC0A' : v >= 50 ? '#FF9172' : '#F24935';
+    const minutes = i * 5;
+    return `<div class="excitement-bar" style="height:${v}%; background:${color};" title="${minutes}' — ${v}%"><span class="excitement-label">${minutes}'</span></div>`;
+  }).join('');
+}
+
+function populateNotableQuotes(data) {
+  const container = document.getElementById('rNotableQuotes');
+  if (!container || !data.notable_quotes || data.notable_quotes.length === 0) {
+    const section = document.getElementById('rQuotesSection');
+    if (section) section.remove();
+    return;
+  }
+  container.innerHTML = data.notable_quotes.map(q => `
+    <div class="quote-card">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">${q.text}</p>
+      <div class="quote-meta">
+        <span class="quote-time">${q.time}</span>
+        <span class="quote-context">${q.context || ''}</span>
+      </div>
+    </div>
+  `).join('');
 }
 
 // ── Animations ──

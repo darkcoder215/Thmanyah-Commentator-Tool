@@ -146,7 +146,20 @@ Each family comes in five weights:
 | Bold | `700` | `-Bold` |
 | Black | `900` | `-Black` |
 
-### 4.3 Font Usage Hierarchy
+### 4.3 Numeral System
+
+**Default: Western Arabic (English) numerals** — `0 1 2 3 4 5 6 7 8 9`
+
+All numbers displayed in the UI — scores, statistics, timestamps, percentages, dates — **must** use Western Arabic (English-style) numerals for consistency and data clarity. This applies to:
+- Score displays (e.g., `82 / 100`, not `٨٢ / ١٠٠`)
+- Progress percentages (e.g., `78%`, not `٧٨٪`)
+- Timestamps (e.g., `12'`, `45:30`, not `١٢'`)
+- Statistics and counts (e.g., `142 كلمة/دقيقة`)
+- Dates (e.g., `8 فبراير 2026`)
+
+Arabic-Indic numerals (`٠١٢٣٤٥٦٧٨٩`) should **not** be used in the interface.
+
+### 4.4 Font Usage Hierarchy
 
 | Element | Font Family | Weight | Suggested Sizes |
 |---|---|---|---|
@@ -161,7 +174,7 @@ Each family comes in five weights:
 | **Data / Numbers** | Sans | Medium / Bold | 14–24px (contextual) |
 | **Score Display (large)** | Serif Display | Black | 48–72px |
 
-### 4.4 CSS @font-face Setup
+### 4.5 CSS @font-face Setup
 
 ```css
 /* Headlines — Thmanyah Serif Display */
