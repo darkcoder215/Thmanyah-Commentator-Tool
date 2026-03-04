@@ -160,7 +160,7 @@
               <div class="dash-step-card">
                 <div class="dash-step-num">2</div>
                 <h4 class="dash-step-title">تحليل بالذكاء الاصطناعي</h4>
-                <p class="dash-step-desc">يقوم Gemini 2.5 Pro بتحليل الصوت وتقييم الأداء عبر 8 محاور و32 معيارًا</p>
+                <p class="dash-step-desc">يقوم الذكاء الاصطناعي بتحليل الصوت وتقييم الأداء عبر 8 محاور و32 معيارًا</p>
               </div>
               <div class="dash-step-card">
                 <div class="dash-step-num">3</div>
@@ -635,38 +635,21 @@
 
           <div class="settings-header">
             <h2 class="settings-title">الإعدادات</h2>
-            <p class="settings-subtitle">تخصيص إعدادات الأداة ونموذج الذكاء الاصطناعي وتفضيلات التقارير</p>
+            <p class="settings-subtitle">تخصيص إعدادات الأداة وتفضيلات التقارير</p>
           </div>
 
-          <!-- API Configuration -->
+          <!-- General Settings -->
           <div class="card settings-card">
             <div class="settings-card-header">
               <div class="settings-card-icon" style="background:rgba(0,193,122,0.1);color:#00C17A;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
               </div>
               <div>
-                <h3 class="settings-card-title">إعدادات API</h3>
-                <p class="settings-card-desc">إعدادات الاتصال بنموذج الذكاء الاصطناعي عبر OpenRouter</p>
+                <h3 class="settings-card-title">إعدادات عامة</h3>
+                <p class="settings-card-desc">إعدادات التحليل العامة</p>
               </div>
             </div>
             <div class="settings-fields">
-              <div class="settings-field">
-                <label class="settings-label">مفتاح OpenRouter API</label>
-                <div class="settings-input-group">
-                  <input type="password" class="settings-input" id="settingsApiKey" placeholder="sk-or-v1-..." value="sk-or-v1-••••••••••••••••">
-                  <button class="btn btn-secondary btn-sm" onclick="toggleApiKeyVisibility()">إظهار</button>
-                </div>
-                <span class="settings-hint">يُستخدم للاتصال بنموذج Gemini 2.5 Pro عبر OpenRouter. <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">الحصول على مفتاح</a></span>
-              </div>
-              <div class="settings-field">
-                <label class="settings-label">النموذج</label>
-                <select class="settings-select" id="settingsModel">
-                  <option value="google/gemini-2.5-pro" selected>Gemini 2.5 Pro (موصى به)</option>
-                  <option value="google/gemini-2.0-flash">Gemini 2.0 Flash (أسرع)</option>
-                  <option value="openai/gpt-4o-audio-preview">GPT-4o Audio (بديل)</option>
-                </select>
-                <span class="settings-hint">Gemini 2.5 Pro يوفر أفضل جودة تحليل للتعليقات الرياضية العربية</span>
-              </div>
               <div class="settings-field">
                 <label class="settings-label">الحد الأقصى لحجم الملف (ميغابايت)</label>
                 <input type="number" class="settings-input settings-input-sm" id="settingsMaxSize" value="200" min="10" max="500">
@@ -806,9 +789,9 @@
             <p class="settings-about-version">الإصدار 1.0.0</p>
             <p class="settings-about-desc">أداة متقدمة لتحليل وتقييم أداء المعلقين الرياضيين باستخدام الذكاء الاصطناعي. مبنية بواسطة فريق ثمانية.</p>
             <div class="settings-about-tech">
-              <span class="tag tag-green">Gemini 2.5 Pro</span>
-              <span class="tag tag-blue">OpenRouter API</span>
-              <span class="tag tag-amber">html2pdf.js</span>
+              <span class="tag tag-green">ذكاء اصطناعي</span>
+              <span class="tag tag-blue">تحليل صوتي</span>
+              <span class="tag tag-amber">تصدير PDF</span>
             </div>
           </div>
 

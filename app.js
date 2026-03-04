@@ -1503,7 +1503,6 @@ function initSettingsPage() {
 function loadSettings() {
   try {
     const saved = JSON.parse(localStorage.getItem('thmanyah_settings') || '{}');
-    if (saved.model) { const el = document.getElementById('settingsModel'); if (el) el.value = saved.model; }
     if (saved.maxSize) { const el = document.getElementById('settingsMaxSize'); if (el) el.value = saved.maxSize; }
     if (saved.categories) { const el = document.getElementById('settingsCategories'); if (el) el.value = saved.categories; }
     if (saved.userName) { const el = document.getElementById('settingsUserName'); if (el) el.value = saved.userName; }
@@ -1518,7 +1517,6 @@ function loadSettings() {
 
 function saveSettings() {
   const settings = {
-    model: document.getElementById('settingsModel')?.value,
     maxSize: document.getElementById('settingsMaxSize')?.value,
     categories: document.getElementById('settingsCategories')?.value,
     userName: document.getElementById('settingsUserName')?.value,
@@ -1535,8 +1533,6 @@ function saveSettings() {
 
   localStorage.setItem('thmanyah_settings', JSON.stringify(settings));
 
-  // Apply model if changed
-  if (settings.model) CONFIG.model = settings.model;
   if (settings.maxSize) CONFIG.maxFileSizeMB = parseInt(settings.maxSize);
 
   // Update sidebar user info
@@ -1559,20 +1555,6 @@ function resetSettings() {
   settingsInitialized = false;
   initSettingsPage();
   showToast('تم إعادة تعيين الإعدادات');
-}
-
-function toggleApiKeyVisibility() {
-  const input = document.getElementById('settingsApiKey');
-  if (!input) return;
-  if (input.type === 'password') {
-    input.type = 'text';
-    input.value = CONFIG.apiKey;
-    input.nextElementSibling.textContent = 'إخفاء';
-  } else {
-    input.type = 'password';
-    input.value = 'sk-or-v1-••••••••••••••••';
-    input.nextElementSibling.textContent = 'إظهار';
-  }
 }
 
 function showToast(message) {
