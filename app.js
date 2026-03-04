@@ -51,12 +51,13 @@ function formatNum(n) {
 }
 
 function getScoreColor(score) {
-  const isAnanas = document.body.classList.contains('theme-ananas');
-  if (isAnanas) {
-    if (score >= 85) return '#00BC60';
-    if (score >= 70) return '#FFD04A';
-    if (score >= 50) return '#FF8C68';
-    return '#EF4632';
+  if (document.body.classList.contains('theme-ananas')) {
+    // Ananas 5-level rating: فخر/خضر/صفر/حمر/خطر
+    if (score >= 90) return '#0D7544';  // فخر — Pride (dark green)
+    if (score >= 75) return '#00BC60';  // خضر — Good (bright green)
+    if (score >= 60) return '#FFD04A';  // صفر — Average (yellow)
+    if (score >= 40) return '#EF4632';  // حمر — Below avg (coral red)
+    return '#8B1A1A';                   // خطر — Danger (dark maroon)
   }
   if (score >= 85) return '#00C17A';
   if (score >= 70) return '#FFBC0A';
@@ -65,6 +66,13 @@ function getScoreColor(score) {
 }
 
 function getScoreRating(score) {
+  if (document.body.classList.contains('theme-ananas')) {
+    if (score >= 90) return 'فخر';
+    if (score >= 75) return 'خضر';
+    if (score >= 60) return 'صفر';
+    if (score >= 40) return 'حمر';
+    return 'خطر';
+  }
   if (score >= 90) return 'ممتاز';
   if (score >= 80) return 'جيد جدًا';
   if (score >= 70) return 'جيد';
@@ -760,8 +768,17 @@ function populateDetailedBreakdown(data) {
     cat.criteria.forEach(cr => {
       const crColor = getScoreColor(cr.score);
       const crClass = getScoreClass(cr.score);
+      // Ananas signature: tinted row backgrounds based on rating
+      let rowTint = '';
+      if (isAnanas()) {
+        if (cr.score >= 90) rowTint = 'background:#E8F5E9;';
+        else if (cr.score >= 75) rowTint = 'background:#E8F5E9;';
+        else if (cr.score >= 60) rowTint = 'background:#FFF9E0;';
+        else if (cr.score >= 40) rowTint = 'background:#FDECEA;';
+        else rowTint = 'background:#FDECEA; border-right:3px solid #8B1A1A;';
+      }
       groupHtml += `
-        <div class="criteria-item">
+        <div class="criteria-item" style="${rowTint}">
           <div class="criteria-info">
             <span class="criteria-name">${cr.name}</span>
             <span class="criteria-score ${crClass}">${formatNum(cr.score)}</span>
@@ -791,7 +808,7 @@ function populateTranscription(data) {
   container.innerHTML = '';
 
   const speakerColors = {};
-  const colors = ['#00C17A', '#0072F9', '#FFBC0A', '#F24935', '#82003A'];
+  const colors = getThemeSpeakerColors();
   let colorIdx = 0;
 
   data.transcription.forEach(entry => {
@@ -910,18 +927,20 @@ function populateRadarChart(data) {
     const r = maxR * (cats[i].score / 100);
     dataPts.push(`${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`);
   }
-  const dataPolygon = `<polygon points="${dataPts.join(' ')}" fill="rgba(0,193,122,0.15)" stroke="#00C17A" stroke-width="2.5" class="radar-polygon"/>`;
+  const radarAccent = getThemeAccent();
+  const radarRgb = getThemeAccentRgb();
+  const dataPolygon = `<polygon points="${dataPts.join(' ')}" fill="rgba(${radarRgb},0.15)" stroke="${radarAccent}" stroke-width="2.5" class="radar-polygon"/>`;
   // Dots + labels
   let dotsSvg = '';
   for (let i = 0; i < n; i++) {
     const a = angleStep * i - Math.PI / 2;
     const r = maxR * (cats[i].score / 100);
-    dotsSvg += `<circle cx="${cx + r * Math.cos(a)}" cy="${cy + r * Math.sin(a)}" r="4" fill="#00C17A"/>`;
+    dotsSvg += `<circle cx="${cx + r * Math.cos(a)}" cy="${cy + r * Math.sin(a)}" r="4" fill="${radarAccent}"/>`;
     const lr = maxR + 22;
     const lx = cx + lr * Math.cos(a);
     const ly = cy + lr * Math.sin(a);
     dotsSvg += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="#333">${cats[i].name.split(' ')[0]}</text>`;
-    dotsSvg += `<text x="${lx}" y="${ly + 14}" text-anchor="middle" dominant-baseline="middle" font-size="10" font-weight="600" fill="#00C17A">${cats[i].score}</text>`;
+    dotsSvg += `<text x="${lx}" y="${ly + 14}" text-anchor="middle" dominant-baseline="middle" font-size="10" font-weight="600" fill="${radarAccent}">${cats[i].score}</text>`;
   }
   container.innerHTML = `<svg viewBox="0 0 300 300" class="radar-svg">${gridSvg}${dataPolygon}${dotsSvg}</svg>`;
 }
@@ -934,7 +953,7 @@ function populateExcitementTimeline(data) {
     return;
   }
   container.innerHTML = data.excitement_timeline.map((v, i) => {
-    const color = v >= 85 ? '#00C17A' : v >= 70 ? '#FFBC0A' : v >= 50 ? '#FF9172' : '#F24935';
+    const color = getScoreColor(v);
     const minutes = i * 5;
     return `<div class="excitement-bar" style="height:${v}%; background:${color};" title="${minutes}' — ${v}%"><span class="excitement-label">${minutes}'</span></div>`;
   }).join('');
@@ -1303,7 +1322,7 @@ function renderStatsComparison() {
     commentators[r.commentator].reports.push(r);
   });
 
-  const colors = ['#00C17A', '#0072F9', '#FFBC0A', '#F24935'];
+  const colors = getThemeComparisonColors();
   const entries = Object.values(commentators);
 
   container.innerHTML = `
@@ -1336,13 +1355,7 @@ function renderStatsDistribution() {
     allScores.push(c.score);
   }));
 
-  const buckets = [
-    { label: 'ممتاز (90-100)', min: 90, max: 100, color: '#00C17A' },
-    { label: 'جيد جدًا (80-89)', min: 80, max: 89, color: '#B2E2BA' },
-    { label: 'جيد (70-79)', min: 70, max: 79, color: '#FFBC0A' },
-    { label: 'مقبول (60-69)', min: 60, max: 69, color: '#FF9172' },
-    { label: 'يحتاج تحسين (<60)', min: 0, max: 59, color: '#F24935' },
-  ];
+  const buckets = getThemeDistBuckets();
 
   const maxCount = Math.max(...buckets.map(b => allScores.filter(s => s >= b.min && s <= b.max).length));
 
@@ -1433,11 +1446,11 @@ function renderStatsTrendChart() {
         <line x1="0" y1="50" x2="100" y2="50" stroke="#EFEDE2" stroke-width="0.5"/>
         <line x1="0" y1="75" x2="100" y2="75" stroke="#EFEDE2" stroke-width="0.5"/>
         <!-- Area -->
-        <path d="${pathD} L ${points[points.length-1].x} 100 L ${points[0].x} 100 Z" fill="rgba(0,193,122,0.08)" />
+        <path d="${pathD} L ${points[points.length-1].x} 100 L ${points[0].x} 100 Z" fill="rgba(${getThemeAccentRgb()},0.08)" />
         <!-- Line -->
-        <path d="${pathD}" fill="none" stroke="#00C17A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="${pathD}" fill="none" stroke="${getThemeAccent()}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         <!-- Dots -->
-        ${points.map(p => `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#00C17A" stroke="#fff" stroke-width="2"/>`).join('')}
+        ${points.map(p => `<circle cx="${p.x}" cy="${p.y}" r="4" fill="${getThemeAccent()}" stroke="#fff" stroke-width="2"/>`).join('')}
       </svg>
       <div class="stats-trend-labels">
         ${points.map(p => `
@@ -1574,6 +1587,49 @@ function showToast(message) {
 }
 
 // ── Theme Switching ──
+function isAnanas() {
+  return document.body.classList.contains('theme-ananas');
+}
+
+function getThemeAccent() {
+  return isAnanas() ? '#EF4632' : '#00C17A';
+}
+
+function getThemeAccentRgb() {
+  return isAnanas() ? '239,70,50' : '0,193,122';
+}
+
+function getThemeSpeakerColors() {
+  return isAnanas()
+    ? ['#EF4632', '#006BFF', '#FFD04A', '#0D7544', '#FF0D85']
+    : ['#00C17A', '#0072F9', '#FFBC0A', '#F24935', '#82003A'];
+}
+
+function getThemeComparisonColors() {
+  return isAnanas()
+    ? ['#EF4632', '#006BFF', '#FFD04A', '#0D7544']
+    : ['#00C17A', '#0072F9', '#FFBC0A', '#F24935'];
+}
+
+function getThemeDistBuckets() {
+  if (isAnanas()) {
+    return [
+      { label: 'فخر (90-100)', min: 90, max: 100, color: '#0D7544' },
+      { label: 'خضر (80-89)', min: 80, max: 89, color: '#00BC60' },
+      { label: 'صفر (70-79)', min: 70, max: 79, color: '#FFD04A' },
+      { label: 'حمر (60-69)', min: 60, max: 69, color: '#FF8C68' },
+      { label: 'خطر (<60)', min: 0, max: 59, color: '#8B1A1A' },
+    ];
+  }
+  return [
+    { label: 'ممتاز (90-100)', min: 90, max: 100, color: '#00C17A' },
+    { label: 'جيد جدًا (80-89)', min: 80, max: 89, color: '#B2E2BA' },
+    { label: 'جيد (70-79)', min: 70, max: 79, color: '#FFBC0A' },
+    { label: 'مقبول (60-69)', min: 60, max: 69, color: '#FF9172' },
+    { label: 'يحتاج تحسين (<60)', min: 0, max: 59, color: '#F24935' },
+  ];
+}
+
 function switchTheme(theme) {
   const body = document.body;
   const btns = document.querySelectorAll('.theme-switcher-btn');
@@ -1587,9 +1643,67 @@ function switchTheme(theme) {
 
   localStorage.setItem('ananas-theme', theme);
 
-  // Re-render any inline score colors if a report is loaded
+  // Force re-render all pages that use inline colors
+  applyThemeToInlineStyles();
+
+  // Re-render report if loaded
   if (state.report && state.currentView === 'report') {
     populateReport(state.report);
+  }
+}
+
+function applyThemeToInlineStyles() {
+  const accent = getThemeAccent();
+  const rgb = getThemeAccentRgb();
+
+  // Dashboard stat icons that use inline style with the old green
+  document.querySelectorAll('.dash-stat-icon').forEach(el => {
+    const bg = el.style.background || el.style.backgroundColor;
+    if (bg && (bg.includes('0,193,122') || bg.includes('239,70,50'))) {
+      el.style.background = `rgba(${rgb},0.1)`;
+      el.style.color = accent;
+    }
+  });
+
+  // Dashboard feature icons that use inline green
+  document.querySelectorAll('.dash-feature-icon').forEach(el => {
+    const bg = el.style.background || el.style.backgroundColor;
+    if (bg && (bg.includes('0,193,122') || bg.includes('239,70,50'))) {
+      el.style.background = `rgba(${rgb},0.1)`;
+      el.style.color = accent;
+    }
+  });
+
+  // Settings card icon that uses inline green
+  document.querySelectorAll('.settings-card-icon').forEach(el => {
+    const bg = el.style.background || el.style.backgroundColor;
+    if (bg && (bg.includes('0,193,122') || bg.includes('239,70,50'))) {
+      el.style.background = `rgba(${rgb},0.1)`;
+      el.style.color = accent;
+    }
+  });
+
+  // Dashboard welcome SVG circles
+  const welcomeSvg = document.querySelector('.dash-welcome-visual svg');
+  if (welcomeSvg) {
+    welcomeSvg.querySelectorAll('circle[stroke]').forEach(c => {
+      const s = c.getAttribute('stroke');
+      if (s === '#00C17A' || s === '#EF4632') c.setAttribute('stroke', accent);
+    });
+  }
+
+  // Re-render reports grid and home reports (they use inline getScoreColor)
+  if (homeInitialized) {
+    homeInitialized = false;
+    initHomePage();
+  }
+  if (reportsInitialized) {
+    reportsInitialized = false;
+    initReportsPage();
+  }
+  if (statsInitialized) {
+    statsInitialized = false;
+    initStatisticsPage();
   }
 }
 
