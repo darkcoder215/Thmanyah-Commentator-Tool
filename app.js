@@ -51,6 +51,13 @@ function formatNum(n) {
 }
 
 function getScoreColor(score) {
+  const isAnanas = document.body.classList.contains('theme-ananas');
+  if (isAnanas) {
+    if (score >= 85) return '#00BC60';
+    if (score >= 70) return '#FFD04A';
+    if (score >= 50) return '#FF8C68';
+    return '#EF4632';
+  }
   if (score >= 85) return '#00C17A';
   if (score >= 70) return '#FFBC0A';
   if (score >= 50) return '#FF9172';
@@ -1566,8 +1573,36 @@ function showToast(message) {
   setTimeout(() => toast.classList.remove('visible'), 3000);
 }
 
+// ── Theme Switching ──
+function switchTheme(theme) {
+  const body = document.body;
+  const btns = document.querySelectorAll('.theme-switcher-btn');
+  btns.forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+
+  if (theme === 'ananas') {
+    body.classList.add('theme-ananas');
+  } else {
+    body.classList.remove('theme-ananas');
+  }
+
+  localStorage.setItem('ananas-theme', theme);
+
+  // Re-render any inline score colors if a report is loaded
+  if (state.report && state.currentView === 'report') {
+    populateReport(state.report);
+  }
+}
+
+function loadSavedTheme() {
+  const saved = localStorage.getItem('ananas-theme');
+  if (saved === 'ananas') {
+    switchTheme('ananas');
+  }
+}
+
 // ── Initialization ──
 document.addEventListener('DOMContentLoaded', () => {
+  loadSavedTheme();
   initUpload();
   showView('home');
 

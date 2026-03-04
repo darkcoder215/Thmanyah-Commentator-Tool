@@ -50,6 +50,253 @@
   --sidebar-width: 260px;
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   ANANAS THEME OVERRIDE
+   When body.theme-ananas is applied, the entire app switches to the
+   Ananas design identity (orange accent, semantic rating colors, etc.)
+   ══════════════════════════════════════════════════════════════════ */
+body.theme-ananas {
+  --color-green: #EF4632;
+  --color-green-light: #FDECEA;
+  --color-green-pale: #FDECEA;
+  --color-blue: #006BFF;
+  --color-red: #8B1A1A;
+  --color-amber: #FFD04A;
+  --color-peach: #FF8C68;
+  --color-off-white: #FAFAFA;
+  --color-cream: #F4EEE8;
+  --color-warm-gray: #E8E4DE;
+
+  --ananas-prime: #EF4632;
+  --ananas-pride: #0D7544;
+  --ananas-good: #00BC60;
+  --ananas-yellow: #FFD04A;
+  --ananas-red: #EF4632;
+  --ananas-danger: #8B1A1A;
+}
+
+/* Sidebar accent color → Prime Orange */
+body.theme-ananas .nav-item.active,
+body.theme-ananas .nav-item.selected {
+  background: rgba(239, 70, 50, 0.12);
+}
+body.theme-ananas .nav-item.active::before,
+body.theme-ananas .nav-item.selected::before {
+  background: var(--ananas-prime);
+}
+
+/* User avatar */
+body.theme-ananas .user-avatar {
+  background: var(--ananas-prime);
+}
+
+/* Buttons */
+body.theme-ananas .btn-accent {
+  background: var(--ananas-prime);
+}
+body.theme-ananas .btn-accent:hover {
+  background: #D83C2A;
+}
+
+/* Upload zone hover → orange accent */
+body.theme-ananas .upload-drop-zone:hover,
+body.theme-ananas .upload-drop-zone.drag-over {
+  border-color: var(--ananas-prime);
+  background: rgba(239, 70, 50, 0.03);
+  box-shadow: 0 0 0 4px rgba(239, 70, 50, 0.1);
+}
+body.theme-ananas .upload-hero-icon {
+  background: rgba(239, 70, 50, 0.1);
+  color: var(--ananas-prime);
+}
+body.theme-ananas .upload-drop-zone:hover .drop-zone-icon,
+body.theme-ananas .upload-drop-zone.drag-over .drop-zone-icon {
+  background: rgba(239, 70, 50, 0.1);
+  color: var(--ananas-prime);
+}
+
+/* File info card icon */
+body.theme-ananas .file-info-icon {
+  background: rgba(239, 70, 50, 0.1);
+  color: var(--ananas-prime);
+}
+body.theme-ananas .file-info-remove:hover {
+  background: rgba(139, 26, 26, 0.08);
+  color: var(--ananas-danger);
+}
+
+/* Loading view → orange pulse */
+body.theme-ananas .loading-pulse-ring {
+  border-color: rgba(239, 70, 50, 0.2);
+}
+body.theme-ananas .loading-icon {
+  background: rgba(239, 70, 50, 0.1);
+  color: var(--ananas-prime);
+}
+body.theme-ananas .loading-progress-fill {
+  background: var(--ananas-prime);
+}
+body.theme-ananas .loading-step.active {
+  color: var(--ananas-prime);
+}
+body.theme-ananas .loading-step.active .step-dot {
+  background: var(--ananas-prime);
+  box-shadow: 0 0 0 4px rgba(239, 70, 50, 0.2);
+}
+
+/* Match banner — team gradients */
+body.theme-ananas .team-a {
+  background: linear-gradient(135deg, #EF4632, #D83C2A);
+}
+body.theme-ananas .team-b {
+  background: linear-gradient(135deg, #006BFF, #0058C4);
+}
+
+/* Commentator avatar */
+body.theme-ananas .commentator-avatar {
+  background: var(--ananas-prime);
+}
+
+/* Score tags */
+body.theme-ananas .tag-green {
+  background: rgba(0, 188, 96, 0.1);
+  color: #007A3D;
+}
+
+/* Highlight */
+body.theme-ananas .highlight-green {
+  background-color: var(--color-green-light);
+  color: #B5301E;
+}
+
+/* Score badges */
+body.theme-ananas .score-excellent {
+  background: rgba(0, 188, 96, 0.12);
+  color: #007A3D;
+}
+body.theme-ananas .score-good {
+  background: rgba(0, 188, 96, 0.08);
+  color: #006B42;
+}
+body.theme-ananas .score-average {
+  background: rgba(255, 208, 74, 0.2);
+  color: #8B6600;
+}
+body.theme-ananas .score-below-avg {
+  background: rgba(239, 70, 50, 0.12);
+  color: #993D26;
+}
+
+/* Badge colors */
+body.theme-ananas .badge-green {
+  background: rgba(0, 188, 96, 0.12);
+  color: #007A3D;
+}
+body.theme-ananas .badge-red {
+  background: rgba(139, 26, 26, 0.1);
+  color: #8B1A1A;
+}
+
+/* Strength / Improvement icons */
+body.theme-ananas .strength-icon {
+  background: rgba(0, 188, 96, 0.12);
+  color: #00BC60;
+}
+
+/* Quote card → orange accent border */
+body.theme-ananas .quote-card {
+  border-right-color: var(--ananas-prime);
+}
+body.theme-ananas .quote-mark {
+  color: var(--ananas-prime);
+}
+body.theme-ananas .quote-time {
+  background: rgba(239, 70, 50, 0.1);
+  color: #B5301E;
+}
+
+/* Dashboard step numbers */
+body.theme-ananas .dash-step-num {
+  background: var(--ananas-prime);
+}
+
+/* Report list avatar */
+body.theme-ananas .report-list-avatar {
+  background: var(--ananas-prime);
+}
+
+/* Focus rings → orange */
+body.theme-ananas .settings-input:focus,
+body.theme-ananas .reports-search-input:focus,
+body.theme-ananas .settings-select:focus {
+  border-color: var(--ananas-prime);
+  box-shadow: 0 0 0 3px rgba(239, 70, 50, 0.1);
+}
+
+/* Toggle switch → orange */
+body.theme-ananas .settings-switch input:checked + .settings-slider {
+  background: var(--ananas-prime);
+}
+
+/* Toast icon */
+body.theme-ananas .toast-icon {
+  color: var(--ananas-prime);
+}
+
+/* Stats trend score color */
+body.theme-ananas .stats-trend-score {
+  color: var(--ananas-prime);
+}
+body.theme-ananas .stats-page-sum-trend.up {
+  background: rgba(0, 188, 96, 0.1);
+  color: #007A3D;
+}
+
+/* Demo banner */
+body.theme-ananas .reports-demo-banner {
+  background: linear-gradient(135deg, #EF4632, #8B1A1A);
+}
+
+/* ── Theme Switcher ── */
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: var(--space-4);
+  padding: 4px;
+  background: var(--color-cream);
+  border-radius: var(--radius-full);
+  position: relative;
+}
+.theme-switcher-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-muted);
+  padding: 0 var(--space-2);
+  white-space: nowrap;
+}
+.theme-switcher-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-muted);
+  background: transparent;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  font-family: var(--font-ui);
+  cursor: pointer;
+}
+.theme-switcher-btn.active {
+  background: var(--color-white);
+  color: var(--color-black);
+  box-shadow: var(--shadow-sm);
+}
+body.theme-ananas .theme-switcher-btn.active {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
 /* ── Reset ── */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
