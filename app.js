@@ -102,6 +102,65 @@ function getFileFormat(file) {
   return null;
 }
 
+// ── Dummy Report Data (for reports list, stats pages) ──
+const DUMMY_REPORTS = [
+  {
+    id: 'demo-1',
+    commentator: 'فهد العتيبي',
+    teamA: 'الهلال', teamB: 'النصر', score: '3 - 2',
+    competition: 'دوري روشن — الجولة 22',
+    date: '2026-02-08', overallScore: 79, rating: 'جيد جدًا',
+    channel: 'SSC HD',
+    categories: [
+      { name: 'الأداء الصوتي', score: 85 }, { name: 'اللغة والأسلوب', score: 82 },
+      { name: 'التحليل التكتيكي', score: 71 }, { name: 'تغطية الأحداث', score: 88 },
+      { name: 'التوازن العاطفي', score: 65 }, { name: 'التفاعل مع المشاهد', score: 83 },
+      { name: 'المعرفة الرياضية', score: 77 }, { name: 'الإبداع والتميز', score: 80 },
+    ],
+    isDummy: true,
+  },
+  {
+    id: 'demo-2',
+    commentator: 'عيسى الحربين',
+    teamA: 'الاتحاد', teamB: 'الأهلي', score: '1 - 1',
+    competition: 'دوري روشن — الجولة 20',
+    date: '2026-01-25', overallScore: 82, rating: 'جيد جدًا',
+    channel: 'SSC Sport 1',
+    categories: [
+      { name: 'الأداء الصوتي', score: 88 }, { name: 'اللغة والأسلوب', score: 86 },
+      { name: 'التحليل التكتيكي', score: 78 }, { name: 'تغطية الأحداث', score: 85 },
+      { name: 'التوازن العاطفي', score: 80 }, { name: 'التفاعل مع المشاهد', score: 79 },
+      { name: 'المعرفة الرياضية', score: 82 }, { name: 'الإبداع والتميز', score: 76 },
+    ],
+    isDummy: true,
+  },
+  {
+    id: 'demo-3',
+    commentator: 'فهد العتيبي',
+    teamA: 'الشباب', teamB: 'الرائد', score: '2 - 0',
+    competition: 'دوري روشن — الجولة 18',
+    date: '2026-01-11', overallScore: 74, rating: 'جيد',
+    channel: 'SSC HD',
+    categories: [
+      { name: 'الأداء الصوتي', score: 80 }, { name: 'اللغة والأسلوب', score: 76 },
+      { name: 'التحليل التكتيكي', score: 68 }, { name: 'تغطية الأحداث', score: 82 },
+      { name: 'التوازن العاطفي', score: 72 }, { name: 'التفاعل مع المشاهد', score: 70 },
+      { name: 'المعرفة الرياضية', score: 69 }, { name: 'الإبداع والتميز', score: 72 },
+    ],
+    isDummy: true,
+  },
+];
+
+const VIEW_CONFIG = {
+  home:       { title: 'الرئيسية',            navIdx: 0, actions: false },
+  upload:     { title: 'تحليل جديد',           navIdx: 1, actions: false },
+  loading:    { title: 'جارٍ التحليل...',       navIdx: 1, actions: false },
+  report:     { title: 'تقرير تحليل الأداء',    navIdx: 2, actions: true },
+  reports:    { title: 'التقارير',              navIdx: 2, actions: false },
+  statistics: { title: 'الإحصائيات',           navIdx: 3, actions: false },
+  settings:   { title: 'الإعدادات',            navIdx: 4, actions: false },
+};
+
 // ── View Management ──
 function showView(viewName) {
   state.currentView = viewName;
@@ -109,31 +168,30 @@ function showView(viewName) {
   const target = $(`.view-${viewName}`);
   if (target) target.classList.add('view-active');
 
-  // Update top bar
-  const topBarActions = $('.top-bar-actions');
-  const pageTitle = $('.page-title');
-  if (viewName === 'upload') {
-    pageTitle.textContent = 'تحليل جديد';
-    topBarActions.style.display = 'none';
-  } else if (viewName === 'loading') {
-    pageTitle.textContent = 'جارٍ التحليل...';
-    topBarActions.style.display = 'none';
-  } else if (viewName === 'report') {
-    pageTitle.textContent = 'تقرير تحليل الأداء';
-    topBarActions.style.display = 'flex';
-  }
+  const cfg = VIEW_CONFIG[viewName] || VIEW_CONFIG.home;
+  const pageTitle = $('#pageTitle');
+  const topBarActions = $('#topBarActions');
+  if (pageTitle) pageTitle.textContent = cfg.title;
+  if (topBarActions) topBarActions.style.display = cfg.actions ? 'flex' : 'none';
 
   // Update nav items
-  $$('.nav-item').forEach(item => {
-    item.classList.remove('active', 'selected');
+  $$('.nav-item').forEach((item, i) => {
+    item.classList.toggle('active', i === cfg.navIdx);
   });
-  if (viewName === 'upload') {
-    $$('.nav-item')[1].classList.add('active');
-  } else if (viewName === 'report') {
-    $$('.nav-item')[2].classList.add('active');
-  } else {
-    $$('.nav-item')[0].classList.add('active');
-  }
+
+  // Scroll content to top
+  const scroll = target?.querySelector('.content-scroll');
+  if (scroll) scroll.scrollTop = 0;
+
+  // Lazy-init pages
+  if (viewName === 'home') initHomePage();
+  if (viewName === 'reports') initReportsPage();
+  if (viewName === 'statistics') initStatisticsPage();
+  if (viewName === 'settings') initSettingsPage();
+}
+
+function navigateTo(viewName) {
+  showView(viewName);
 }
 
 // ── File Upload ──
@@ -1065,10 +1123,471 @@ function filterCriteria(filter) {
   });
 }
 
+// ═══════════════════════════════════════════════════════════════
+// HOME PAGE
+// ═══════════════════════════════════════════════════════════════
+let homeInitialized = false;
+function initHomePage() {
+  if (homeInitialized) return;
+  homeInitialized = true;
+
+  const container = document.getElementById('dashRecentReports');
+  if (!container) return;
+
+  container.innerHTML = DUMMY_REPORTS.slice(0, 3).map(r => `
+    <div class="dash-report-card" onclick="${r.isDummy ? `window.open('dummy.html','_blank')` : ''}">
+      <div class="dash-report-teams">
+        <span class="dash-report-team">${r.teamA}</span>
+        <span class="dash-report-vs">${r.score}</span>
+        <span class="dash-report-team">${r.teamB}</span>
+      </div>
+      <div class="dash-report-meta">
+        <span class="dash-report-commentator">${r.commentator}</span>
+        <span class="dash-report-date">${r.date}</span>
+      </div>
+      <div class="dash-report-score-row">
+        <div class="dash-report-score" style="background:${getScoreColor(r.overallScore)}15;color:${getScoreColor(r.overallScore)};">
+          ${r.overallScore}
+        </div>
+        <span class="dash-report-rating">${r.rating}</span>
+        <span class="dash-report-comp">${r.competition}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// REPORTS LIST PAGE
+// ═══════════════════════════════════════════════════════════════
+let reportsInitialized = false;
+function initReportsPage() {
+  if (reportsInitialized) return;
+  reportsInitialized = true;
+  renderReportsGrid();
+
+  // Search
+  const searchInput = document.getElementById('reportsSearchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => renderReportsGrid(searchInput.value.trim()));
+  }
+  // Sort
+  const sortSelect = document.getElementById('reportsSortSelect');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', () => renderReportsGrid(searchInput?.value.trim()));
+  }
+}
+
+function renderReportsGrid(search) {
+  const grid = document.getElementById('reportsGrid');
+  if (!grid) return;
+
+  let reports = [...DUMMY_REPORTS];
+
+  // Filter
+  if (search) {
+    const q = search.toLowerCase();
+    reports = reports.filter(r =>
+      r.commentator.includes(q) || r.teamA.includes(q) || r.teamB.includes(q) || r.channel.includes(q)
+    );
+  }
+
+  // Sort
+  const sort = document.getElementById('reportsSortSelect')?.value || 'date-desc';
+  reports.sort((a, b) => {
+    if (sort === 'date-desc') return b.date.localeCompare(a.date);
+    if (sort === 'date-asc') return a.date.localeCompare(b.date);
+    if (sort === 'score-desc') return b.overallScore - a.overallScore;
+    if (sort === 'score-asc') return a.overallScore - b.overallScore;
+    return 0;
+  });
+
+  if (reports.length === 0) {
+    grid.innerHTML = `<div class="reports-empty"><p>لا توجد تقارير مطابقة للبحث</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = reports.map(r => {
+    const topCat = [...r.categories].sort((a, b) => b.score - a.score)[0];
+    const lowCat = [...r.categories].sort((a, b) => a.score - b.score)[0];
+    return `
+    <div class="report-list-card" onclick="${r.isDummy ? `window.open('dummy.html','_blank')` : ''}">
+      <div class="report-list-top">
+        <div class="report-list-match">
+          <span class="report-list-teams">${r.teamA} ${r.score} ${r.teamB}</span>
+          <span class="report-list-comp">${r.competition}</span>
+        </div>
+        <div class="report-list-overall" style="background:${getScoreColor(r.overallScore)}12;color:${getScoreColor(r.overallScore)};border:2px solid ${getScoreColor(r.overallScore)}30;">
+          <span class="report-list-overall-num">${r.overallScore}</span>
+          <span class="report-list-overall-max">/100</span>
+        </div>
+      </div>
+      <div class="report-list-info">
+        <div class="report-list-commentator">
+          <div class="report-list-avatar">${r.commentator.charAt(0)}</div>
+          <div>
+            <span class="report-list-name">${r.commentator}</span>
+            <span class="report-list-channel">${r.channel} — ${r.date}</span>
+          </div>
+        </div>
+      </div>
+      <div class="report-list-cats">
+        ${r.categories.map(c => `
+          <div class="report-list-cat-bar">
+            <span class="report-list-cat-name">${c.name.split(' ')[0]}</span>
+            <div class="report-list-cat-track"><div class="report-list-cat-fill" style="width:${c.score}%;background:${getScoreColor(c.score)};"></div></div>
+            <span class="report-list-cat-score">${c.score}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="report-list-footer">
+        <span class="report-list-best tag tag-green">الأفضل: ${topCat.name} (${topCat.score})</span>
+        <span class="report-list-worst tag tag-amber">يحتاج تحسين: ${lowCat.name} (${lowCat.score})</span>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STATISTICS PAGE
+// ═══════════════════════════════════════════════════════════════
+let statsInitialized = false;
+function initStatisticsPage() {
+  if (statsInitialized) return;
+  statsInitialized = true;
+
+  renderStatsCategoryBars();
+  renderStatsComparison();
+  renderStatsDistribution();
+  renderStatsStrengthsImprovements();
+  renderStatsTrendChart();
+  renderStatsFacts();
+  animateStatsCounters();
+}
+
+function renderStatsCategoryBars() {
+  const container = document.getElementById('statsCategoryBars');
+  if (!container) return;
+
+  const catNames = DUMMY_REPORTS[0].categories.map(c => c.name);
+  const avgScores = catNames.map((name, i) => {
+    const sum = DUMMY_REPORTS.reduce((s, r) => s + r.categories[i].score, 0);
+    return { name, score: Math.round(sum / DUMMY_REPORTS.length) };
+  });
+
+  container.innerHTML = avgScores.map(c => `
+    <div class="stats-bar-row">
+      <span class="stats-bar-label">${c.name}</span>
+      <div class="stats-bar-track">
+        <div class="stats-bar-fill" style="width:${c.score}%;background:${getScoreColor(c.score)};"></div>
+      </div>
+      <span class="stats-bar-value" style="color:${getScoreColor(c.score)}">${c.score}</span>
+    </div>
+  `).join('');
+}
+
+function renderStatsComparison() {
+  const container = document.getElementById('statsComparison');
+  if (!container) return;
+
+  const commentators = {};
+  DUMMY_REPORTS.forEach(r => {
+    if (!commentators[r.commentator]) commentators[r.commentator] = { reports: [], name: r.commentator };
+    commentators[r.commentator].reports.push(r);
+  });
+
+  const colors = ['#00C17A', '#0072F9', '#FFBC0A', '#F24935'];
+  const entries = Object.values(commentators);
+
+  container.innerHTML = `
+    <div class="stats-comparison-legend">
+      ${entries.map((e, i) => `<span class="stats-legend-item"><span class="stats-legend-dot" style="background:${colors[i]}"></span>${e.name} (${e.reports.length} تقارير)</span>`).join('')}
+    </div>
+    <div class="stats-comparison-bars">
+      ${DUMMY_REPORTS[0].categories.map((cat, ci) => `
+        <div class="stats-comp-row">
+          <span class="stats-comp-label">${cat.name.split(' ')[0]}</span>
+          <div class="stats-comp-bars-group">
+            ${entries.map((e, ei) => {
+              const avg = Math.round(e.reports.reduce((s, r) => s + r.categories[ci].score, 0) / e.reports.length);
+              return `<div class="stats-comp-bar" style="width:${avg}%;background:${colors[ei]};" title="${e.name}: ${avg}"><span class="stats-comp-bar-val">${avg}</span></div>`;
+            }).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderStatsDistribution() {
+  const container = document.getElementById('statsDistribution');
+  if (!container) return;
+
+  // Collect all criteria scores
+  const allScores = [];
+  DUMMY_REPORTS.forEach(r => r.categories.forEach(c => {
+    allScores.push(c.score);
+  }));
+
+  const buckets = [
+    { label: 'ممتاز (90-100)', min: 90, max: 100, color: '#00C17A' },
+    { label: 'جيد جدًا (80-89)', min: 80, max: 89, color: '#B2E2BA' },
+    { label: 'جيد (70-79)', min: 70, max: 79, color: '#FFBC0A' },
+    { label: 'مقبول (60-69)', min: 60, max: 69, color: '#FF9172' },
+    { label: 'يحتاج تحسين (<60)', min: 0, max: 59, color: '#F24935' },
+  ];
+
+  const maxCount = Math.max(...buckets.map(b => allScores.filter(s => s >= b.min && s <= b.max).length));
+
+  container.innerHTML = `
+    <div class="stats-dist-bars">
+      ${buckets.map(b => {
+        const count = allScores.filter(s => s >= b.min && s <= b.max).length;
+        const pct = maxCount > 0 ? (count / maxCount * 100) : 0;
+        return `
+          <div class="stats-dist-item">
+            <div class="stats-dist-bar-wrap">
+              <div class="stats-dist-bar" style="height:${pct}%;background:${b.color};"></div>
+            </div>
+            <span class="stats-dist-count">${count}</span>
+            <span class="stats-dist-label">${b.label.split(' ')[0]}</span>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderStatsStrengthsImprovements() {
+  const strengths = document.getElementById('statsTopStrengths');
+  const improvements = document.getElementById('statsTopImprovements');
+
+  const strongItems = [
+    { text: 'تغطية الأحداث لحظة بلحظة', count: 3, pct: 100 },
+    { text: 'وضوح النطق والإلقاء', count: 3, pct: 100 },
+    { text: 'بناء الإثارة والتشويق', count: 2, pct: 67 },
+    { text: 'تعليق الأهداف واللحظات الحاسمة', count: 2, pct: 67 },
+    { text: 'الإلمام بسياق البطولة', count: 2, pct: 67 },
+  ];
+
+  const weakItems = [
+    { text: 'الحياد وعدم الانحياز', count: 2, pct: 67 },
+    { text: 'تفسير القرارات التكتيكية', count: 3, pct: 100 },
+    { text: 'الإعداد والتحضير المسبق', count: 2, pct: 67 },
+    { text: 'المراجع التاريخية والمقارنات', count: 2, pct: 67 },
+  ];
+
+  if (strengths) {
+    strengths.innerHTML = strongItems.map(s => `
+      <div class="stats-list-item">
+        <span class="stats-list-icon strength-icon">&#10003;</span>
+        <div class="stats-list-content">
+          <span class="stats-list-text">${s.text}</span>
+          <span class="stats-list-meta">ظهرت في ${s.count} من ${DUMMY_REPORTS.length} تقارير (${s.pct}%)</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if (improvements) {
+    improvements.innerHTML = weakItems.map(s => `
+      <div class="stats-list-item">
+        <span class="stats-list-icon improvement-icon">!</span>
+        <div class="stats-list-content">
+          <span class="stats-list-text">${s.text}</span>
+          <span class="stats-list-meta">ظهرت في ${s.count} من ${DUMMY_REPORTS.length} تقارير (${s.pct}%)</span>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function renderStatsTrendChart() {
+  const container = document.getElementById('statsTrendChart');
+  if (!container) return;
+
+  const sorted = [...DUMMY_REPORTS].sort((a, b) => a.date.localeCompare(b.date));
+  const points = sorted.map((r, i) => ({
+    x: (i / Math.max(sorted.length - 1, 1)) * 100,
+    y: 100 - r.overallScore,
+    label: `${r.teamA} vs ${r.teamB}`,
+    score: r.overallScore,
+    date: r.date,
+  }));
+
+  const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+
+  container.innerHTML = `
+    <div class="stats-trend-wrap">
+      <svg viewBox="-5 0 110 110" class="stats-trend-svg" preserveAspectRatio="none">
+        <!-- Grid lines -->
+        <line x1="0" y1="0" x2="100" y2="0" stroke="#EFEDE2" stroke-width="0.5"/>
+        <line x1="0" y1="25" x2="100" y2="25" stroke="#EFEDE2" stroke-width="0.5"/>
+        <line x1="0" y1="50" x2="100" y2="50" stroke="#EFEDE2" stroke-width="0.5"/>
+        <line x1="0" y1="75" x2="100" y2="75" stroke="#EFEDE2" stroke-width="0.5"/>
+        <!-- Area -->
+        <path d="${pathD} L ${points[points.length-1].x} 100 L ${points[0].x} 100 Z" fill="rgba(0,193,122,0.08)" />
+        <!-- Line -->
+        <path d="${pathD}" fill="none" stroke="#00C17A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Dots -->
+        ${points.map(p => `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#00C17A" stroke="#fff" stroke-width="2"/>`).join('')}
+      </svg>
+      <div class="stats-trend-labels">
+        ${points.map(p => `
+          <div class="stats-trend-point" style="left:${p.x}%">
+            <span class="stats-trend-score">${p.score}</span>
+            <span class="stats-trend-match">${p.label}</span>
+            <span class="stats-trend-date">${p.date}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderStatsFacts() {
+  const container = document.getElementById('statsFacts');
+  if (!container) return;
+
+  const facts = [
+    { icon: '🎙️', text: 'أعلى تقييم فردي: تغطية الأحداث لفهد العتيبي (88) في مباراة الهلال والنصر' },
+    { icon: '📊', text: 'المحور الأكثر تفاوتًا: التوازن العاطفي — فارق 15 نقطة بين أعلى وأقل تقييم' },
+    { icon: '🏆', text: 'عيسى الحربين حصل على أعلى متوسط تقييم عام (82) من تقرير واحد' },
+    { icon: '📈', text: 'اتجاه الأداء في تحسن: ارتفاع 5 نقاط في آخر تقريرين مقارنة بالأول' },
+    { icon: '🗣️', text: 'متوسط كلمات المعلقين المحللين: 148 كلمة/دقيقة — أعلى من المتوسط العالمي' },
+    { icon: '⚡', text: 'المعلقون سجلوا في المتوسط 12 لحظة ذروة حماس لكل مباراة' },
+  ];
+
+  container.innerHTML = facts.map(f => `
+    <div class="stats-fact-card">
+      <span class="stats-fact-icon">${f.icon}</span>
+      <span class="stats-fact-text">${f.text}</span>
+    </div>
+  `).join('');
+}
+
+function animateStatsCounters() {
+  const els = document.querySelectorAll('.view-statistics [data-count-target]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.countTarget);
+        if (!target) return;
+        const start = performance.now();
+        const duration = 1200;
+        const step = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  els.forEach(el => observer.observe(el));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SETTINGS PAGE
+// ═══════════════════════════════════════════════════════════════
+let settingsInitialized = false;
+function initSettingsPage() {
+  if (settingsInitialized) return;
+  settingsInitialized = true;
+  loadSettings();
+}
+
+function loadSettings() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('thmanyah_settings') || '{}');
+    if (saved.model) { const el = document.getElementById('settingsModel'); if (el) el.value = saved.model; }
+    if (saved.maxSize) { const el = document.getElementById('settingsMaxSize'); if (el) el.value = saved.maxSize; }
+    if (saved.categories) { const el = document.getElementById('settingsCategories'); if (el) el.value = saved.categories; }
+    if (saved.userName) { const el = document.getElementById('settingsUserName'); if (el) el.value = saved.userName; }
+    if (saved.userRole) { const el = document.getElementById('settingsUserRole'); if (el) el.value = saved.userRole; }
+
+    ['Transcription', 'Excitement', 'Quotes', 'Performance', 'Radar', 'PdfTranscription'].forEach(key => {
+      const el = document.getElementById('settings' + key);
+      if (el && saved['show' + key] !== undefined) el.checked = saved['show' + key];
+    });
+  } catch (e) { /* ignore */ }
+}
+
+function saveSettings() {
+  const settings = {
+    model: document.getElementById('settingsModel')?.value,
+    maxSize: document.getElementById('settingsMaxSize')?.value,
+    categories: document.getElementById('settingsCategories')?.value,
+    userName: document.getElementById('settingsUserName')?.value,
+    userRole: document.getElementById('settingsUserRole')?.value,
+    showTranscription: document.getElementById('settingsTranscription')?.checked,
+    showExcitement: document.getElementById('settingsExcitement')?.checked,
+    showQuotes: document.getElementById('settingsQuotes')?.checked,
+    showPerformance: document.getElementById('settingsPerformance')?.checked,
+    showRadar: document.getElementById('settingsRadar')?.checked,
+    showPdfTranscription: document.getElementById('settingsPdfTranscription')?.checked,
+    pageSize: document.getElementById('settingsPageSize')?.value,
+    imageQuality: document.getElementById('settingsImageQuality')?.value,
+  };
+
+  localStorage.setItem('thmanyah_settings', JSON.stringify(settings));
+
+  // Apply model if changed
+  if (settings.model) CONFIG.model = settings.model;
+  if (settings.maxSize) CONFIG.maxFileSizeMB = parseInt(settings.maxSize);
+
+  // Update sidebar user info
+  const userName = document.querySelector('.user-name');
+  const userRole = document.querySelector('.user-role');
+  const userAvatar = document.querySelector('.user-avatar');
+  if (userName && settings.userName) userName.textContent = settings.userName;
+  if (userRole && settings.userRole) userRole.textContent = settings.userRole;
+  if (userAvatar && settings.userName) userAvatar.textContent = settings.userName.charAt(0);
+
+  // Update welcome
+  const welcomeTitle = document.querySelector('.dash-welcome-title');
+  if (welcomeTitle && settings.userName) welcomeTitle.textContent = `مرحبًا، ${settings.userName.split(' ')[0]}`;
+
+  showToast('تم حفظ الإعدادات بنجاح');
+}
+
+function resetSettings() {
+  localStorage.removeItem('thmanyah_settings');
+  settingsInitialized = false;
+  initSettingsPage();
+  showToast('تم إعادة تعيين الإعدادات');
+}
+
+function toggleApiKeyVisibility() {
+  const input = document.getElementById('settingsApiKey');
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    input.value = CONFIG.apiKey;
+    input.nextElementSibling.textContent = 'إخفاء';
+  } else {
+    input.type = 'password';
+    input.value = 'sk-or-v1-••••••••••••••••';
+    input.nextElementSibling.textContent = 'إظهار';
+  }
+}
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  const msgEl = document.getElementById('toastMessage');
+  if (!toast || !msgEl) return;
+  msgEl.textContent = message;
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 3000);
+}
+
 // ── Initialization ──
 document.addEventListener('DOMContentLoaded', () => {
   initUpload();
-  showView('upload');
+  showView('home');
 
   // Sidebar toggle
   const sidebar = document.getElementById('sidebar');
@@ -1084,17 +1603,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Nav items
+  const navMap = ['home', 'upload', 'reports', 'statistics', 'settings'];
   document.querySelectorAll('.nav-item').forEach((item, idx) => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
-      if (idx === 0) showView('upload');
-      else if (idx === 1) { startNewAnalysis(); }
-      else if (idx === 2 && state.report) showView('report');
-      else if (idx === 2 && !state.report) showError('لا يوجد تقرير', 'قم بتحليل تسجيل صوتي أولًا لعرض التقرير.');
+      const target = navMap[idx];
+      if (target === 'upload') { startNewAnalysis(); return; }
+      showView(target);
     });
   });
 
-  // Tab switching
+  // Tab switching (for report detail view)
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('tab') && e.target.closest('.card-tabs')) {
       const tabs = e.target.closest('.card-tabs').querySelectorAll('.tab');
