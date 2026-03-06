@@ -33,13 +33,53 @@
        ═══════════════════════════════════════ */
     .desktop {
       width: 100%; height: 100%;
-      background: #F7F4EE;
+      background: #1a1a2e;
       background-image:
-        radial-gradient(circle at 80% 70%, rgba(0,193,122,0.04) 0%, transparent 50%),
-        radial-gradient(circle at 20% 30%, rgba(0,114,249,0.03) 0%, transparent 40%);
+        radial-gradient(ellipse at 70% 20%, rgba(0,193,122,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 80%, rgba(0,114,249,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 90%, rgba(255,188,10,0.08) 0%, transparent 40%),
+        linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       position: relative;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+    }
+    /* Animated grid overlay */
+    .desktop::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,193,122,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,193,122,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes gridShift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
+    /* Floating particles */
+    .desktop::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(2px 2px at 20% 30%, rgba(0,193,122,0.3), transparent),
+        radial-gradient(2px 2px at 40% 70%, rgba(0,114,249,0.2), transparent),
+        radial-gradient(2px 2px at 80% 20%, rgba(255,188,10,0.2), transparent),
+        radial-gradient(2px 2px at 60% 80%, rgba(0,193,122,0.15), transparent),
+        radial-gradient(1.5px 1.5px at 10% 60%, rgba(255,255,255,0.1), transparent),
+        radial-gradient(1.5px 1.5px at 90% 40%, rgba(255,255,255,0.08), transparent),
+        radial-gradient(3px 3px at 50% 50%, rgba(0,193,122,0.1), transparent);
+      animation: particleDrift 30s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes particleDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-20px, 10px) scale(1.1); }
+      100% { transform: translate(15px, -15px) scale(0.95); }
     }
 
     /* ── Desktop Area ── */
@@ -48,6 +88,7 @@
       position: relative;
       overflow: hidden;
       padding: 24px;
+      z-index: 1;
     }
 
     /* ── Desktop Icons Grid ── */
@@ -61,36 +102,57 @@
     }
 
     .desktop-icon {
-      width: 90px;
-      padding: 10px 4px;
+      width: 100px;
+      padding: 14px 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      border-radius: 8px;
+      gap: 8px;
+      border-radius: 14px;
       cursor: pointer;
-      transition: background 0.15s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       text-align: center;
+      animation: iconFadeIn 0.6s ease backwards;
+    }
+    .desktop-icon:nth-child(1) { animation-delay: 0.1s; }
+    .desktop-icon:nth-child(2) { animation-delay: 0.2s; }
+    .desktop-icon:nth-child(3) { animation-delay: 0.3s; }
+    .desktop-icon:nth-child(4) { animation-delay: 0.4s; }
+    .desktop-icon:nth-child(5) { animation-delay: 0.5s; }
+    .desktop-icon:nth-child(6) { animation-delay: 0.6s; }
+    .desktop-icon:nth-child(7) { animation-delay: 0.7s; }
+    @keyframes iconFadeIn {
+      0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     .desktop-icon:hover {
-      background: rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-4px) scale(1.05);
+    }
+    .desktop-icon:hover .desktop-icon-img {
+      filter: drop-shadow(0 4px 12px rgba(0,193,122,0.4));
+    }
+    .desktop-icon:active {
+      transform: scale(0.95);
     }
     .desktop-icon.selected {
-      background: rgba(0,193,122,0.12);
+      background: rgba(0,193,122,0.15);
+      box-shadow: 0 0 0 2px rgba(0,193,122,0.3);
     }
     .desktop-icon-img {
-      width: 48px; height: 48px;
+      width: 64px; height: 64px;
       display: flex; align-items: center; justify-content: center;
       font-size: 36px;
       pointer-events: none;
+      transition: filter 0.25s ease;
     }
-    .desktop-icon-img svg { width: 44px; height: 44px; }
+    .desktop-icon-img svg { width: 58px; height: 58px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
     .desktop-icon-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #333;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
       line-height: 1.3;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6), 0 0 8px rgba(0,0,0,0.3);
       word-break: break-word;
       pointer-events: none;
     }
@@ -112,27 +174,39 @@
       position: absolute;
       background: #FFFFFF;
       border-radius: 12px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       min-width: 400px;
       min-height: 300px;
       overflow: hidden;
-      transition: box-shadow 0.2s ease;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
       z-index: 10;
+      animation: windowOpen 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes windowOpen {
+      0% { opacity: 0; transform: scale(0.85) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
     .window.focused {
-      box-shadow: 0 12px 48px rgba(0,0,0,0.22), 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 16px 56px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,193,122,0.15);
     }
     .window.maximized {
       border-radius: 0 !important;
       top: 0 !important;
       left: 0 !important;
       width: 100% !important;
-      height: calc(100% - 52px) !important;
+      height: calc(100% - 56px) !important;
     }
     .window.minimized {
       display: none !important;
+    }
+    .window.closing {
+      animation: windowClose 0.25s ease forwards;
+    }
+    @keyframes windowClose {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.85) translateY(20px); }
     }
 
     /* ── Window Title Bar ── */
@@ -252,7 +326,11 @@
       justify-content: center; height: 100%; padding: 32px;
       text-align: center; gap: 12px;
     }
-    .about-logo { width: 72px; height: 72px; }
+    .about-logo { width: 80px; height: 80px; filter: drop-shadow(0 4px 12px rgba(0,193,122,0.3)); animation: aboutLogoFloat 3s ease-in-out infinite; }
+    @keyframes aboutLogoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
     .about-title {
       font-family: 'Thmanyah Serif Display', serif;
       font-size: 24px; font-weight: 900;
@@ -292,31 +370,34 @@
        TASKBAR
        ═══════════════════════════════════════ */
     .taskbar {
-      height: 52px;
-      background: #000000;
+      height: 56px;
+      background: linear-gradient(180deg, #111 0%, #000 100%);
+      border-top: 1px solid rgba(0,193,122,0.2);
       color: #FFFFFF;
       display: flex;
       align-items: center;
-      padding: 0 8px;
-      gap: 4px;
+      padding: 0 10px;
+      gap: 6px;
       z-index: 1000;
       position: relative;
+      backdrop-filter: blur(20px);
     }
 
     /* ── Start Button ── */
     .start-btn {
       display: flex; align-items: center; gap: 8px;
-      padding: 6px 16px 6px 12px;
-      background: rgba(255,255,255,0.08);
-      border: none; border-radius: 8px;
+      padding: 8px 20px 8px 14px;
+      background: linear-gradient(135deg, rgba(0,193,122,0.15), rgba(0,193,122,0.05));
+      border: 1px solid rgba(0,193,122,0.2);
+      border-radius: 10px;
       color: #FFFFFF; cursor: pointer;
       font-family: 'Thmanyah Sans', sans-serif;
-      font-weight: 700; font-size: 13px;
-      transition: background 0.15s ease;
+      font-weight: 700; font-size: 14px;
+      transition: all 0.2s ease;
     }
-    .start-btn:hover { background: rgba(255,255,255,0.14); }
-    .start-btn.active { background: rgba(0,193,122,0.2); }
-    .start-btn img { width: 22px; height: 22px; }
+    .start-btn:hover { background: linear-gradient(135deg, rgba(0,193,122,0.25), rgba(0,193,122,0.1)); border-color: rgba(0,193,122,0.4); transform: scale(1.03); }
+    .start-btn.active { background: rgba(0,193,122,0.3); border-color: #00C17A; box-shadow: 0 0 12px rgba(0,193,122,0.3); }
+    .start-btn img { width: 24px; height: 24px; filter: drop-shadow(0 0 4px rgba(0,193,122,0.4)); }
 
     /* ── Taskbar Separator ── */
     .taskbar-sep {
@@ -333,27 +414,36 @@
       overflow-x: auto;
     }
     .taskbar-app-btn {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 14px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
       background: rgba(255,255,255,0.06);
-      border: none; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
       color: #FFFFFF; cursor: pointer;
       font-family: 'Thmanyah Sans', sans-serif;
-      font-weight: 600; font-size: 12px;
+      font-weight: 600; font-size: 13px;
       white-space: nowrap;
-      transition: background 0.15s ease;
-      max-width: 200px;
+      transition: all 0.2s ease;
+      max-width: 220px;
       overflow: hidden;
       text-overflow: ellipsis;
+      position: relative;
     }
-    .taskbar-app-btn:hover { background: rgba(255,255,255,0.12); }
+    .taskbar-app-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.1); transform: translateY(-1px); }
     .taskbar-app-btn.active {
-      background: rgba(0,193,122,0.15);
-      border-bottom: 2px solid #00C17A;
+      background: rgba(0,193,122,0.12);
+      border-color: rgba(0,193,122,0.3);
+      box-shadow: 0 2px 8px rgba(0,193,122,0.2), inset 0 -2px 0 #00C17A;
     }
     .taskbar-app-btn .app-dot {
-      width: 4px; height: 4px; border-radius: 50%;
+      width: 6px; height: 6px; border-radius: 50%;
       background: #00C17A; flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(0,193,122,0.5);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 4px rgba(0,193,122,0.3); }
+      50% { box-shadow: 0 0 10px rgba(0,193,122,0.7); }
     }
 
     /* ── System Tray ── */
@@ -382,18 +472,27 @@
        ═══════════════════════════════════════ */
     .start-menu {
       position: absolute;
-      bottom: 56px;
-      right: 8px;
-      width: 360px;
-      background: #FFFFFF;
-      border-radius: 16px;
-      box-shadow: 0 16px 64px rgba(0,0,0,0.25), 0 4px 16px rgba(0,0,0,0.1);
+      bottom: 60px;
+      right: 10px;
+      width: 380px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      border-radius: 18px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.35), 0 4px 20px rgba(0,0,0,0.15);
       z-index: 2000;
-      display: none;
       overflow: hidden;
       direction: rtl;
+      transform-origin: bottom right;
+      transform: scale(0.9) translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .start-menu.visible { display: block; }
+    .start-menu.visible {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .start-menu-header {
       padding: 20px 20px 12px;
@@ -461,16 +560,20 @@
        ═══════════════════════════════════════ */
     .context-menu {
       position: fixed;
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      border-radius: 14px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
       z-index: 3000;
-      display: none;
-      min-width: 200px;
+      min-width: 220px;
       padding: 6px;
       overflow: hidden;
+      transform: scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .context-menu.visible { display: block; }
+    .context-menu.visible { transform: scale(1); opacity: 1; pointer-events: auto; }
     .context-menu-item {
       display: flex; align-items: center; gap: 10px;
       padding: 8px 14px;
@@ -487,41 +590,213 @@
       margin: 4px 8px;
     }
     .context-menu-item.danger { color: #F24935; }
+    .context-menu-item:active { transform: scale(0.97); }
+
+    /* ═══════════════════════════════════════
+       THMANYAH BIN ASSISTANT
+       ═══════════════════════════════════════ */
+    .assistant {
+      position: fixed;
+      bottom: 70px;
+      left: 24px;
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      animation: assistantBounce 3s ease-in-out infinite;
+    }
+    .assistant:hover { transform: scale(1.1); }
+    @keyframes assistantBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .assistant-avatar {
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, #00C17A, #008A58);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,193,122,0.4), 0 0 0 3px rgba(0,193,122,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .assistant-avatar::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      border-radius: 50%;
+    }
+    .assistant-avatar img { width: 36px; height: 36px; filter: brightness(10); }
+    .assistant-label {
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    .assistant-status {
+      width: 14px; height: 14px;
+      background: #00C17A;
+      border: 2px solid #1a1a2e;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -2px; right: -2px;
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+    @keyframes statusPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,193,122,0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(0,193,122,0); }
+    }
+
+    /* ── Assistant Chat Bubble ── */
+    .assistant-bubble {
+      position: fixed;
+      bottom: 140px;
+      left: 24px;
+      width: 320px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      border-radius: 18px 18px 4px 18px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      z-index: 901;
+      padding: 20px;
+      direction: rtl;
+      transform-origin: bottom left;
+      transform: scale(0.8) translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .assistant-bubble.visible {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .assistant-bubble-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #EFEDE2;
+    }
+    .assistant-bubble-header img { width: 28px; height: 28px; }
+    .assistant-bubble-header span { font-weight: 800; font-size: 15px; color: #000; }
+    .assistant-bubble-close {
+      margin-right: auto;
+      width: 24px; height: 24px;
+      background: #F4F2ED;
+      border: none; border-radius: 50%;
+      cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .assistant-bubble-close:hover { background: #EE4; }
+    .assistant-bubble-body { font-size: 13px; line-height: 1.7; color: #444; }
+    .assistant-help-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.12s;
+      margin-top: 4px;
+    }
+    .assistant-help-item:hover { background: #F4F2ED; }
+    .assistant-help-icon {
+      width: 32px; height: 32px;
+      background: rgba(0,193,122,0.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .assistant-help-text { font-size: 13px; font-weight: 600; color: #333; }
+    .assistant-tip {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: linear-gradient(135deg, rgba(0,193,122,0.08), rgba(0,193,122,0.02));
+      border-radius: 10px;
+      border-right: 3px solid #00C17A;
+      font-size: 12px; color: #555; line-height: 1.6;
+    }
+    .assistant-tip strong { color: #008A58; }
+
+    /* ═══════════════════════════════════════
+       TRASH FILE LIST
+       ═══════════════════════════════════════ */
+    .trash-file-list {
+      padding: 16px;
+      overflow-y: auto;
+      height: 100%;
+    }
+    .trash-file {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: default;
+      transition: background 0.12s;
+      border-bottom: 1px solid #F4F2ED;
+    }
+    .trash-file:hover { background: #FAFAF6; }
+    .trash-file-icon { font-size: 24px; flex-shrink: 0; opacity: 0.6; }
+    .trash-file-info { flex: 1; }
+    .trash-file-name { font-size: 13px; font-weight: 700; color: #333; }
+    .trash-file-meta { font-size: 11px; color: #999; margin-top: 2px; }
+    .trash-file-badge {
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 999px; white-space: nowrap;
+    }
+    .trash-badge-rejected { background: rgba(242,73,53,0.1); color: #F24935; }
+    .trash-badge-expired { background: rgba(255,188,10,0.15); color: #CC9600; }
+    .trash-badge-denied { background: rgba(153,0,0,0.1); color: #990000; }
 
     /* ═══════════════════════════════════════
        BOOT SCREEN
        ═══════════════════════════════════════ */
     .boot-screen {
       position: fixed; inset: 0; z-index: 9999;
-      background: #000000;
+      background: #000;
+      background-image:
+        radial-gradient(ellipse at 50% 50%, rgba(0,193,122,0.05) 0%, transparent 70%);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 24px;
-      transition: opacity 0.8s ease;
+      gap: 28px;
+      transition: opacity 1s ease;
     }
     .boot-screen.hidden { opacity: 0; pointer-events: none; }
     .boot-logo {
-      width: 80px; height: 80px;
+      width: 90px; height: 90px;
       animation: bootPulse 1.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(0,193,122,0.3));
     }
     @keyframes bootPulse {
-      0%, 100% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.05); opacity: 1; }
+      0%, 100% { transform: scale(1); opacity: 0.7; filter: drop-shadow(0 0 15px rgba(0,193,122,0.2)); }
+      50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 30px rgba(0,193,122,0.5)); }
     }
     .boot-text {
       color: rgba(255,255,255,0.4);
       font-size: 14px; font-weight: 600;
+      animation: bootTextBlink 1s ease-in-out infinite;
+    }
+    @keyframes bootTextBlink {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
     }
     .boot-progress {
-      width: 200px; height: 3px;
-      background: rgba(255,255,255,0.1);
+      width: 240px; height: 4px;
+      background: rgba(255,255,255,0.08);
       border-radius: 999px; overflow: hidden;
     }
     .boot-progress-fill {
       height: 100%; width: 0;
-      background: #00C17A;
+      background: linear-gradient(90deg, #00C17A, #00E88E);
       border-radius: 999px;
       transition: width 0.3s ease;
+      box-shadow: 0 0 10px rgba(0,193,122,0.5);
+    }
+    .boot-version {
+      position: absolute;
+      bottom: 40px;
+      color: rgba(255,255,255,0.15);
+      font-size: 12px; font-weight: 500;
     }
   </style>
 </head>
@@ -532,6 +807,7 @@
     <img src="Usable/thamanyah.png" class="boot-logo" alt="">
     <div class="boot-progress"><div class="boot-progress-fill" id="bootProgress"></div></div>
     <span class="boot-text">...جارٍ التشغيل</span>
+    <span class="boot-version">ثمانية OS v1.0.0 — نظام سطح المكتب</span>
   </div>
 
   <!-- ═══════════ DESKTOP ═══════════ -->
@@ -576,6 +852,13 @@
           <span class="desktop-icon-label">المفكرة</span>
         </div>
 
+        <div class="desktop-icon" data-app="holidays" ondblclick="openApp('holidays')" onclick="selectIcon(this)">
+          <div class="desktop-icon-img">
+            <svg viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#FFF0F5"/><text x="24" y="20" text-anchor="middle" font-size="14">🌴</text><rect x="10" y="25" width="28" height="15" rx="3" fill="#FFF" stroke="#FF69B4" stroke-width="1.5"/><line x1="16" y1="30" x2="32" y2="30" stroke="#FFB6C1" stroke-width="1.5" stroke-linecap="round"/><line x1="16" y1="35" x2="26" y2="35" stroke="#FFB6C1" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="desktop-icon-label">الإجازات المرفوضة</span>
+        </div>
+
         <div class="desktop-icon" data-app="about" ondblclick="openApp('about')" onclick="selectIcon(this)">
           <div class="desktop-icon-img">
             <svg viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#F0F0FF"/><circle cx="24" cy="24" r="14" fill="#FFF" stroke="#0072F9" stroke-width="2"/><text x="24" y="29" text-anchor="middle" font-size="18" font-weight="900" fill="#0072F9" font-family="serif">i</text></svg>
@@ -596,6 +879,47 @@
 
       <!-- Windows Container -->
       <div id="windowsContainer"></div>
+    </div>
+
+    <!-- ═══════════ THMANYAH BIN ASSISTANT ═══════════ -->
+    <div class="assistant" id="assistant" onclick="toggleAssistant()">
+      <div class="assistant-avatar">
+        <img src="Usable/thamanyah.png" alt="">
+        <div class="assistant-status"></div>
+      </div>
+      <span class="assistant-label">ثمانية بن</span>
+    </div>
+
+    <div class="assistant-bubble" id="assistantBubble">
+      <div class="assistant-bubble-header">
+        <img src="Usable/thamanyah.png" alt="">
+        <span>ثمانية بِن — المساعد</span>
+        <button class="assistant-bubble-close" onclick="toggleAssistant()">✕</button>
+      </div>
+      <div class="assistant-bubble-body">
+        <div class="assistant-tip">
+          <strong>مرحبًا!</strong> أنا ثمانية بِن، مساعدك الشخصي. كيف أقدر أساعدك اليوم؟
+        </div>
+        <div class="assistant-help-item" onclick="openApp('commentator'); toggleAssistant();">
+          <div class="assistant-help-icon">🎙️</div>
+          <span class="assistant-help-text">ابدأ تحليل معلق جديد</span>
+        </div>
+        <div class="assistant-help-item" onclick="openApp('design-guide'); toggleAssistant();">
+          <div class="assistant-help-icon">🎨</div>
+          <span class="assistant-help-text">افتح دليل التصميم</span>
+        </div>
+        <div class="assistant-help-item" onclick="openApp('demo-report'); toggleAssistant();">
+          <div class="assistant-help-icon">📊</div>
+          <span class="assistant-help-text">شاهد تقرير تجريبي</span>
+        </div>
+        <div class="assistant-help-item" onclick="openApp('notepad'); toggleAssistant();">
+          <div class="assistant-help-icon">📝</div>
+          <span class="assistant-help-text">افتح مفكرة جديدة</span>
+        </div>
+        <div class="assistant-tip" style="margin-top:8px;">
+          <strong>نصيحة:</strong> انقر مرتين على أي أيقونة لفتحها، أو اضغط بالزر الأيمن على سطح المكتب لقائمة الخيارات.
+        </div>
+      </div>
     </div>
 
     <!-- ═══════════ TASKBAR ═══════════ -->
@@ -671,6 +995,15 @@
             <span class="start-menu-item-desc">محرر نصوص بسيط</span>
           </div>
         </div>
+        <div class="start-menu-item" onclick="openApp('holidays'); toggleStartMenu();">
+          <div class="start-menu-item-icon" style="background:rgba(255,105,180,0.08);">
+            <span>🌴</span>
+          </div>
+          <div class="start-menu-item-text">
+            <span class="start-menu-item-name">الإجازات المرفوضة</span>
+            <span class="start-menu-item-desc">سجل الأحلام المحطمة</span>
+          </div>
+        </div>
         <div class="start-menu-item" onclick="openApp('about'); toggleStartMenu();">
           <div class="start-menu-item-icon" style="background:rgba(0,114,249,0.08);">
             <span>ℹ️</span>
@@ -701,6 +1034,15 @@
       <div class="context-menu-item" onclick="openApp('notepad'); hideContextMenu();">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         مفكرة جديدة
+      </div>
+      <div class="context-menu-sep"></div>
+      <div class="context-menu-item" onclick="openApp('design-guide'); hideContextMenu();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        دليل التصميم
+      </div>
+      <div class="context-menu-item" onclick="toggleAssistant(); hideContextMenu();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        المساعدة
       </div>
       <div class="context-menu-sep"></div>
       <div class="context-menu-item" onclick="openApp('about'); hideContextMenu();">
@@ -768,14 +1110,33 @@ const APP_DEFS = {
     width: 420, height: 380,
     x: 250, y: 100,
   },
+  'holidays': {
+    title: 'الإجازات المرفوضة',
+    icon: '🌴',
+    type: 'holidays',
+    width: 550, height: 500,
+    x: 180, y: 60,
+  },
   'trash': {
     title: 'سلة المحذوفات',
     icon: '🗑️',
     type: 'trash',
-    width: 400, height: 320,
+    width: 520, height: 480,
     x: 200, y: 120,
   },
 };
+
+// Funny deleted files for the trash
+const TRASH_FILES = [
+  { name: 'طلب_ترقية_2024_النسخة_النهائية_v7.docx', icon: '📄', meta: 'تم الحذف: قبل 3 أشهر — 245 كيلوبايت', badge: 'مرفوض', badgeClass: 'trash-badge-rejected' },
+  { name: 'رسالة_طلب_زيادة_راتب_مؤثرة_جداً.pdf', icon: '💰', meta: 'تم الحذف: قبل 6 أشهر — 1.2 ميجابايت', badge: 'مرفوض', badgeClass: 'trash-badge-rejected' },
+  { name: 'خطة_إجازة_الصيف_2025_بالي.xlsx', icon: '🏖️', meta: 'تم الحذف: قبل سنة — 89 كيلوبايت', badge: 'منتهي', badgeClass: 'trash-badge-expired' },
+  { name: 'مسودة_استقالة_بعد_اجتماع_الأحد.txt', icon: '😤', meta: 'تم الحذف: قبل أسبوع — 2 كيلوبايت', badge: 'ملغي', badgeClass: 'trash-badge-denied' },
+  { name: 'طلب_العمل_عن_بعد_من_المالديف.pdf', icon: '🌴', meta: 'تم الحذف: قبل شهرين — 340 كيلوبايت', badge: 'مرفوض', badgeClass: 'trash-badge-rejected' },
+  { name: 'قائمة_أسباب_لماذا_أستحق_مكتب_بنافذة.pptx', icon: '🪟', meta: 'تم الحذف: قبل 4 أشهر — 5.7 ميجابايت', badge: 'مرفوض', badgeClass: 'trash-badge-rejected' },
+  { name: 'اقتراح_تقصير_ساعات_العمل_لـ3_ساعات.docx', icon: '⏰', meta: 'تم الحذف: قبل سنتين — 156 كيلوبايت', badge: 'مرفوض', badgeClass: 'trash-badge-denied' },
+  { name: 'طلب_إجازة_يوم_الأحد_لأن_الجو_حلو.msg', icon: '☀️', meta: 'تم الحذف: أمس — 4 كيلوبايت', badge: 'مرفوض', badgeClass: 'trash-badge-rejected' },
+];
 
 let instanceCounter = 0;
 
@@ -856,14 +1217,53 @@ function createWindow(id, def) {
         <p class="about-desc" style="font-size:12px;color:#999;margin-top:8px;">جميع الحقوق محفوظة لشركة ثمانية للنشر والتوزيع &copy; 2026</p>
       </div>
     `;
+  } else if (def.type === 'holidays') {
+    const holidays = [
+      { date: '15 يناير 2026', reason: 'أحتاج إجازة لأن قطتي عندها موعد عند طبيب نفسي', status: 'مرفوض', note: 'القطط لا تحتاج أطباء نفسيين — المدير' },
+      { date: '3 مارس 2026', reason: 'إجازة مرضية: أعاني من حساسية من الاجتماعات الصباحية', status: 'مرفوض', note: 'الكل يعاني — الموارد البشرية' },
+      { date: '20 أبريل 2025', reason: 'أريد إجازة أسبوع لمشاهدة مسلسل جديد', status: 'مرفوض', note: 'شاهده في الويكند مثل الناس الطبيعية — المدير' },
+      { date: '7 يونيو 2025', reason: 'إجازة طارئة: فريقي المفضل خسر ومحتاج وقت للتعافي', status: 'مرفوض', note: 'كلنا خسرنا، ارجع للشغل — المدير' },
+      { date: '1 سبتمبر 2025', reason: 'إجازة لحضور حفلة زواج صديق في هاواي (أسبوعين)', status: 'مرفوض', note: 'يوم واحد كافي، ما تحتاج أسبوعين — الموارد البشرية' },
+      { date: '12 نوفمبر 2025', reason: 'إجازة لأنني أشعر أنني محتاج أبحث عن ذاتي', status: 'معلق', note: 'ابحث عن ذاتك بعد الدوام — المدير' },
+    ];
+    let hHtml = '<div class="trash-file-list">';
+    hHtml += '<div style="padding:12px 14px 14px;border-bottom:2px solid #FFB6C1;margin-bottom:8px;text-align:center;">';
+    hHtml += '<span style="font-size:24px;">🌴😭</span><br>';
+    hHtml += '<span style="font-weight:800;font-size:15px;color:#333;">سجل الإجازات المرفوضة</span><br>';
+    hHtml += '<span style="font-size:11px;color:#999;">جميع الطلبات المؤلمة المرفوضة</span>';
+    hHtml += '</div>';
+    holidays.forEach(h => {
+      hHtml += `<div class="trash-file" style="flex-direction:column;align-items:stretch;gap:6px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span class="trash-file-name">${h.reason}</span>
+          <span class="trash-file-badge trash-badge-rejected">${h.status}</span>
+        </div>
+        <div style="font-size:11px;color:#999;">📅 ${h.date}</div>
+        <div style="font-size:12px;color:#D32F2F;background:rgba(242,73,53,0.05);padding:6px 10px;border-radius:8px;border-right:3px solid #F24935;">
+          💬 "${h.note}"
+        </div>
+      </div>`;
+    });
+    hHtml += '</div>';
+    body.innerHTML = hHtml;
   } else if (def.type === 'trash') {
-    body.innerHTML = `
-      <div class="trash-content">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/></svg>
-        <p style="font-weight:700;">سلة المحذوفات فارغة</p>
-        <p style="font-size:12px;">لا توجد عناصر محذوفة</p>
-      </div>
-    `;
+    let trashHtml = '<div class="trash-file-list">';
+    trashHtml += '<div style="padding:8px 14px 12px;border-bottom:2px solid #EFEDE2;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">';
+    trashHtml += '<span style="font-weight:800;font-size:14px;color:#333;">🗑️ ' + TRASH_FILES.length + ' عناصر محذوفة</span>';
+    trashHtml += '<span style="font-size:11px;color:#999;">الحجم: 8.7 ميجابايت</span>';
+    trashHtml += '</div>';
+    TRASH_FILES.forEach(f => {
+      trashHtml += `<div class="trash-file">
+        <span class="trash-file-icon">${f.icon}</span>
+        <div class="trash-file-info">
+          <div class="trash-file-name">${f.name}</div>
+          <div class="trash-file-meta">${f.meta}</div>
+        </div>
+        <span class="trash-file-badge ${f.badgeClass}">${f.badge}</span>
+      </div>`;
+    });
+    trashHtml += '</div>';
+    body.innerHTML = trashHtml;
   }
 
   el.appendChild(body);
@@ -927,10 +1327,14 @@ function maximizeWindow(id) {
 
 function closeWindow(id) {
   if (!windows[id]) return;
-  windows[id].el.remove();
-  delete windows[id];
-  windowOrder = windowOrder.filter(w => w !== id);
-  updateTaskbar();
+  const el = windows[id].el;
+  el.classList.add('closing');
+  el.addEventListener('animationend', () => {
+    el.remove();
+    delete windows[id];
+    windowOrder = windowOrder.filter(w => w !== id);
+    updateTaskbar();
+  }, { once: true });
 }
 
 function setupDrag(el, handle, id) {
@@ -1074,25 +1478,55 @@ function renderMarkdown(md) {
   return addSwatches(html);
 }
 
+// ── Assistant Toggle ──
+let assistantOpen = false;
+function toggleAssistant() {
+  assistantOpen = !assistantOpen;
+  document.getElementById('assistantBubble').classList.toggle('visible', assistantOpen);
+}
+
+// Close assistant when clicking elsewhere
+document.addEventListener('click', (e) => {
+  if (assistantOpen && !e.target.closest('.assistant') && !e.target.closest('.assistant-bubble')) {
+    toggleAssistant();
+  }
+});
+
 // ── Boot Sequence ──
 document.addEventListener('DOMContentLoaded', () => {
   const progress = document.getElementById('bootProgress');
+  const bootText = document.querySelector('.boot-text');
+  const bootMessages = ['...جارٍ تحميل النظام', '...جارٍ تهيئة البرامج', '...جارٍ تحضير سطح المكتب', '!مرحبًا بك'];
   let p = 0;
+  let msgIdx = 0;
   const bootInterval = setInterval(() => {
-    p += Math.random() * 25 + 10;
+    p += Math.random() * 20 + 8;
     if (p >= 100) p = 100;
     progress.style.width = p + '%';
+    const newIdx = Math.min(Math.floor(p / 30), bootMessages.length - 1);
+    if (newIdx !== msgIdx) {
+      msgIdx = newIdx;
+      bootText.textContent = bootMessages[msgIdx];
+    }
     if (p >= 100) {
       clearInterval(bootInterval);
       setTimeout(() => {
         document.getElementById('bootScreen').classList.add('hidden');
         document.getElementById('desktop').style.display = 'flex';
+        // Show assistant greeting after a short delay
+        setTimeout(() => {
+          toggleAssistant();
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            if (assistantOpen) toggleAssistant();
+          }, 5000);
+        }, 1500);
         setTimeout(() => {
           document.getElementById('bootScreen').remove();
-        }, 800);
-      }, 400);
+        }, 1000);
+      }, 500);
     }
-  }, 300);
+  }, 350);
 });
 </script>
 </body>
