@@ -33,10 +33,32 @@
         <span>الإحصائيات</span>
       </a>
       <a href="#" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>النجوم</span>
+      </a>
+      <a href="#" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg>
+        <span>المعايير</span>
+      </a>
+      <a href="#" class="nav-item">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         <span>الإعدادات</span>
       </a>
     </nav>
+    <!-- Theme Switcher -->
+    <div class="sidebar-theme-switcher">
+      <span class="theme-switcher-label">المظهر</span>
+      <div class="theme-switcher-toggle" id="themeSwitcher" onclick="toggleTheme()">
+        <div class="theme-option theme-option-thmanyah active" data-theme="thmanyah">
+          <span class="theme-dot" style="background:#00C17A;"></span>
+          <span>ثمانية</span>
+        </div>
+        <div class="theme-option theme-option-ananas" data-theme="ananas">
+          <span class="theme-dot" style="background:#FF4D00;"></span>
+          <span>أناناس</span>
+        </div>
+      </div>
+    </div>
     <div class="sidebar-footer">
       <div class="sidebar-user">
         <div class="user-avatar">م</div>
@@ -57,6 +79,10 @@
       <div class="top-bar-content">
         <h1 class="page-title" id="pageTitle">الرئيسية</h1>
         <div class="top-bar-actions" id="topBarActions" style="display:none;">
+          <button class="btn btn-secondary btn-sm" id="exportExcelBtn" onclick="exportExcel()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+            <span>تصدير Excel</span>
+          </button>
           <button class="btn btn-secondary btn-sm" id="exportPdfBtn" onclick="exportPDF()">
             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>تصدير PDF</span>
@@ -370,6 +396,25 @@
             </div>
           </section>
 
+          <!-- Video Link -->
+          <section class="video-link-section" id="rVideoSection" style="display:none;">
+            <div class="card video-link-card">
+              <div class="video-link-inner">
+                <div class="video-link-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                </div>
+                <div class="video-link-info">
+                  <span class="video-link-label">رابط الفيديو — مستورد من Mimir</span>
+                  <a class="video-link-url" id="rVideoUrl" href="#" target="_blank" rel="noopener"></a>
+                </div>
+                <a class="btn btn-primary btn-sm" id="rVideoBtn" href="#" target="_blank" rel="noopener">
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  مشاهدة
+                </a>
+              </div>
+            </div>
+          </section>
+
           <!-- Overall Score -->
           <section class="score-hero">
             <div class="score-hero-main">
@@ -502,9 +547,31 @@
           <div class="reports-filter-bar">
             <div class="reports-search">
               <svg class="reports-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" class="reports-search-input" placeholder="ابحث بالمعلق أو الفريق..." id="reportsSearchInput">
+              <input type="text" class="reports-search-input" placeholder="ابحث بالمعلق أو الفريق أو القناة..." id="reportsSearchInput">
             </div>
             <div class="reports-filter-group">
+              <select class="reports-select" id="reportsRoleFilter">
+                <option value="all">جميع الأدوار</option>
+                <option value="معلق">معلق</option>
+                <option value="مقدم">مقدم</option>
+                <option value="مراسل">مراسل</option>
+                <option value="محلل">محلل</option>
+              </select>
+              <select class="reports-select" id="reportsScoreFilter">
+                <option value="all">جميع التقييمات</option>
+                <option value="90-100">ممتاز (90-100)</option>
+                <option value="80-89">جيد جدًا (80-89)</option>
+                <option value="70-79">جيد (70-79)</option>
+                <option value="60-69">مقبول (60-69)</option>
+                <option value="0-59">يحتاج تحسين (أقل من 60)</option>
+              </select>
+              <select class="reports-select" id="reportsDateFilter">
+                <option value="all">جميع الفترات</option>
+                <option value="7">آخر أسبوع</option>
+                <option value="30">آخر شهر</option>
+                <option value="90">آخر 3 أشهر</option>
+                <option value="180">آخر 6 أشهر</option>
+              </select>
               <select class="reports-select" id="reportsSortSelect">
                 <option value="date-desc">الأحدث أولًا</option>
                 <option value="date-asc">الأقدم أولًا</option>
@@ -512,6 +579,19 @@
                 <option value="score-asc">الأقل تقييمًا</option>
               </select>
             </div>
+          </div>
+
+          <!-- Bulk Export Bar -->
+          <div class="reports-export-bar">
+            <span class="reports-export-label">تصدير التقارير المعروضة:</span>
+            <button class="btn btn-secondary btn-sm" onclick="exportFilteredReportsPDF()">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              PDF
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="exportFilteredReportsExcel()">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+              Excel
+            </button>
           </div>
 
           <!-- Reports Grid -->
@@ -806,6 +886,119 @@
 
         </div>
 
+        <footer class="page-footer">
+          <div class="footer-content">
+            <img src="Usable/thamanyah.png" alt="ثمانية" class="footer-logo">
+            <span class="footer-text">أداة تحليل المعلقين — ثمانية &copy; 2026</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ═══════════ VIEW: STARS (النجوم) ═══════════ -->
+    <div class="view view-stars">
+      <div class="content-scroll">
+        <div class="stars-container">
+
+          <div class="stars-header">
+            <div class="stars-header-text">
+              <h2 class="stars-title">تقارير النجوم</h2>
+              <p class="stars-subtitle">تقرير شامل لأداء كل نجم خلال آخر 3 أشهر مع مسار التطور الزمني. البيانات مستوردة من Mimir.</p>
+            </div>
+            <div class="stars-header-actions">
+              <button class="btn btn-secondary btn-sm" onclick="exportStarsExcel()">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                تصدير Excel
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="exportStarsPDF()">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                تصدير PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Star Filter Bar -->
+          <div class="reports-filter-bar">
+            <div class="reports-search">
+              <svg class="reports-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" class="reports-search-input" placeholder="ابحث بالاسم..." id="starsSearchInput">
+            </div>
+            <div class="reports-filter-group">
+              <select class="reports-select" id="starsRoleFilter">
+                <option value="all">جميع الأدوار</option>
+                <option value="معلق">معلق</option>
+                <option value="مقدم">مقدم</option>
+                <option value="مراسل">مراسل</option>
+                <option value="محلل">محلل</option>
+              </select>
+              <select class="reports-select" id="starsTrendFilter">
+                <option value="all">جميع الاتجاهات</option>
+                <option value="improving">يتحسن</option>
+                <option value="stable">مستقر</option>
+                <option value="declining">يتراجع</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Stars Grid -->
+          <div class="stars-grid" id="starsGrid"></div>
+
+        </div>
+        <footer class="page-footer">
+          <div class="footer-content">
+            <img src="Usable/thamanyah.png" alt="ثمانية" class="footer-logo">
+            <span class="footer-text">أداة تحليل المعلقين — ثمانية &copy; 2026</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ═══════════ VIEW: CRITERIA (المعايير) ═══════════ -->
+    <div class="view view-criteria">
+      <div class="content-scroll">
+        <div class="criteria-page-container">
+
+          <div class="criteria-page-header">
+            <h2 class="criteria-page-title">معايير التقييم</h2>
+            <p class="criteria-page-subtitle">معايير التقييم الموحدة لكل دور — معلقين، مقدمين، مراسلين، ومحللين. كل دور له معايير مخصصة بحسب طبيعة العمل.</p>
+          </div>
+
+          <!-- Listening Tool Integration Banner -->
+          <div class="listening-tool-banner">
+            <div class="listening-banner-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+            </div>
+            <div class="listening-banner-text">
+              <h4>ربط بأداة الاستماع — Mimir</h4>
+              <p>قيد التطوير: سيتم ربط المعايير بأداة الاستماع الآلية من Mimir بنسبة 100% لتقييم تلقائي بدون تدخل بشري.</p>
+              <span class="tag tag-amber">قيد التطوير</span>
+            </div>
+          </div>
+
+          <!-- Role Tabs -->
+          <div class="criteria-role-tabs">
+            <button class="criteria-role-tab active" onclick="switchCriteriaRole('commentator')">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+              معلق
+            </button>
+            <button class="criteria-role-tab" onclick="switchCriteriaRole('presenter')">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+              مقدم
+            </button>
+            <button class="criteria-role-tab" onclick="switchCriteriaRole('reporter')">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              مراسل
+            </button>
+            <button class="criteria-role-tab" onclick="switchCriteriaRole('analyst')">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              محلل
+            </button>
+          </div>
+
+          <!-- Criteria Content (populated by JS) -->
+          <div id="criteriaRoleContent"></div>
+
+        </div>
         <footer class="page-footer">
           <div class="footer-content">
             <img src="Usable/thamanyah.png" alt="ثمانية" class="footer-logo">

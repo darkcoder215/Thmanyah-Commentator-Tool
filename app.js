@@ -107,46 +107,109 @@ const DUMMY_REPORTS = [
   {
     id: 'demo-1',
     commentator: 'فهد العتيبي',
+    role: 'معلق',
     teamA: 'الهلال', teamB: 'النصر', score: '3 - 2',
     competition: 'دوري روشن — الجولة 22',
     date: '2026-02-08', overallScore: 79, rating: 'جيد جدًا',
     channel: 'SSC HD',
+    video_url: 'https://mimir.thmanyah.com/videos/hilal-nasr-j22',
     categories: [
       { name: 'الأداء الصوتي', score: 85 }, { name: 'اللغة والأسلوب', score: 82 },
       { name: 'التحليل التكتيكي', score: 71 }, { name: 'تغطية الأحداث', score: 88 },
       { name: 'التوازن العاطفي', score: 65 }, { name: 'التفاعل مع المشاهد', score: 83 },
       { name: 'المعرفة الرياضية', score: 77 }, { name: 'الإبداع والتميز', score: 80 },
     ],
+    comments: 'أداء قوي في وصف الأهداف واللحظات الحاسمة. يحتاج تحسين في الحياد عند قرارات الحكم. التحليل التكتيكي يحتاج مزيد من العمق في قراءة التشكيلات.',
     isDummy: true,
   },
   {
     id: 'demo-2',
     commentator: 'عيسى الحربين',
+    role: 'معلق',
     teamA: 'الاتحاد', teamB: 'الأهلي', score: '1 - 1',
     competition: 'دوري روشن — الجولة 20',
     date: '2026-01-25', overallScore: 82, rating: 'جيد جدًا',
     channel: 'SSC Sport 1',
+    video_url: 'https://mimir.thmanyah.com/videos/ittihad-ahli-j20',
     categories: [
       { name: 'الأداء الصوتي', score: 88 }, { name: 'اللغة والأسلوب', score: 86 },
       { name: 'التحليل التكتيكي', score: 78 }, { name: 'تغطية الأحداث', score: 85 },
       { name: 'التوازن العاطفي', score: 80 }, { name: 'التفاعل مع المشاهد', score: 79 },
       { name: 'المعرفة الرياضية', score: 82 }, { name: 'الإبداع والتميز', score: 76 },
     ],
+    comments: 'أداء صوتي متميز مع وضوح عالي في النطق. ثراء لغوي ملحوظ وتنوع في الأسلوب السردي. يمكن تعزيز الإبداع بمزيد من العبارات المميزة والمقارنات التاريخية.',
     isDummy: true,
   },
   {
     id: 'demo-3',
     commentator: 'فهد العتيبي',
+    role: 'معلق',
     teamA: 'الشباب', teamB: 'الرائد', score: '2 - 0',
     competition: 'دوري روشن — الجولة 18',
     date: '2026-01-11', overallScore: 74, rating: 'جيد',
     channel: 'SSC HD',
+    video_url: 'https://mimir.thmanyah.com/videos/shabab-raed-j18',
     categories: [
       { name: 'الأداء الصوتي', score: 80 }, { name: 'اللغة والأسلوب', score: 76 },
       { name: 'التحليل التكتيكي', score: 68 }, { name: 'تغطية الأحداث', score: 82 },
       { name: 'التوازن العاطفي', score: 72 }, { name: 'التفاعل مع المشاهد', score: 70 },
       { name: 'المعرفة الرياضية', score: 69 }, { name: 'الإبداع والتميز', score: 72 },
     ],
+    comments: 'أداء مقبول مع تغطية جيدة للأحداث. يحتاج تطوير ملحوظ في التحليل التكتيكي وقراءة التشكيلات. الأسلوب السردي يحتاج تنويع أكثر.',
+    isDummy: true,
+  },
+  {
+    id: 'demo-4',
+    commentator: 'سارة المالكي',
+    role: 'مقدم',
+    teamA: 'استوديو', teamB: 'دوري روشن', score: '—',
+    competition: 'استوديو التحليل — الجولة 22',
+    date: '2026-02-08', overallScore: 85, rating: 'جيد جدًا',
+    channel: 'SSC HD',
+    video_url: 'https://mimir.thmanyah.com/videos/studio-j22',
+    categories: [
+      { name: 'الأداء الصوتي', score: 90 }, { name: 'اللغة والأسلوب', score: 88 },
+      { name: 'إدارة الحوار', score: 82 }, { name: 'تغطية المحاور', score: 86 },
+      { name: 'التوازن والحياد', score: 84 }, { name: 'التفاعل مع الضيوف', score: 88 },
+      { name: 'المعرفة الرياضية', score: 80 }, { name: 'الحضور والكاريزما', score: 82 },
+    ],
+    comments: 'حضور قوي ومهني أمام الكاميرا. إدارة ممتازة للحوارات والتنقل بين المحاور. تحتاج تعزيز المعرفة التكتيكية لطرح أسئلة أعمق على المحللين.',
+    isDummy: true,
+  },
+  {
+    id: 'demo-5',
+    commentator: 'أحمد الشهري',
+    role: 'مراسل',
+    teamA: 'الهلال', teamB: 'النصر', score: '3 - 2',
+    competition: 'دوري روشن — الجولة 22',
+    date: '2026-02-08', overallScore: 77, rating: 'جيد',
+    channel: 'SSC HD',
+    video_url: 'https://mimir.thmanyah.com/videos/reporter-hilal-nasr-j22',
+    categories: [
+      { name: 'الأداء الصوتي', score: 82 }, { name: 'اللغة والأسلوب', score: 78 },
+      { name: 'دقة المعلومات', score: 80 }, { name: 'سرعة النقل', score: 75 },
+      { name: 'التواصل مع الاستوديو', score: 74 }, { name: 'التحضير والإعداد', score: 76 },
+      { name: 'التعامل مع المواقف', score: 72 }, { name: 'الحضور الميداني', score: 79 },
+    ],
+    comments: 'تقرير ميداني جيد مع دقة في نقل الأحداث. يحتاج تحسين سرعة النقل والتفاعل مع الاستوديو. الحضور الميداني مقنع ومهني.',
+    isDummy: true,
+  },
+  {
+    id: 'demo-6',
+    commentator: 'خالد الزهراني',
+    role: 'محلل',
+    teamA: 'الاتحاد', teamB: 'الأهلي', score: '1 - 1',
+    competition: 'دوري روشن — الجولة 20',
+    date: '2026-01-25', overallScore: 81, rating: 'جيد جدًا',
+    channel: 'SSC Sport 1',
+    video_url: 'https://mimir.thmanyah.com/videos/analyst-ittihad-ahli-j20',
+    categories: [
+      { name: 'الأداء الصوتي', score: 78 }, { name: 'اللغة والأسلوب', score: 80 },
+      { name: 'عمق التحليل', score: 88 }, { name: 'قراءة التشكيلات', score: 85 },
+      { name: 'الموضوعية', score: 82 }, { name: 'التفاعل مع المعلق', score: 79 },
+      { name: 'استخدام البيانات', score: 84 }, { name: 'وضوح الشرح', score: 76 },
+    ],
+    comments: 'تحليل تكتيكي عميق ومبني على بيانات. قراءة دقيقة للتشكيلات والتغييرات. يحتاج تبسيط الشرح أكثر ليكون مفهوم لجمهور أوسع.',
     isDummy: true,
   },
 ];
@@ -158,7 +221,9 @@ const VIEW_CONFIG = {
   report:     { title: 'تقرير تحليل الأداء',    navIdx: 2, actions: true },
   reports:    { title: 'التقارير',              navIdx: 2, actions: false },
   statistics: { title: 'الإحصائيات',           navIdx: 3, actions: false },
-  settings:   { title: 'الإعدادات',            navIdx: 4, actions: false },
+  stars:      { title: 'النجوم',              navIdx: 4, actions: false },
+  criteria:   { title: 'المعايير',             navIdx: 5, actions: false },
+  settings:   { title: 'الإعدادات',            navIdx: 6, actions: false },
 };
 
 // ── View Management ──
@@ -187,6 +252,8 @@ function showView(viewName) {
   if (viewName === 'home') initHomePage();
   if (viewName === 'reports') initReportsPage();
   if (viewName === 'statistics') initStatisticsPage();
+  if (viewName === 'stars') initStarsPage();
+  if (viewName === 'criteria') initCriteriaPage();
   if (viewName === 'settings') initSettingsPage();
 }
 
@@ -612,6 +679,7 @@ function validateReport(data) {
     performance_stats: data.performance_stats || null,
     notable_quotes: Array.isArray(data.notable_quotes) ? data.notable_quotes : [],
     excitement_timeline: Array.isArray(data.excitement_timeline) ? data.excitement_timeline : [],
+    video_url: data.video_url || '',
   };
 
   // Validate categories
@@ -643,6 +711,7 @@ function validateReport(data) {
 // ── Report Population ──
 function populateReport(data) {
   populateMatchBanner(data);
+  populateVideoLink(data);
   populateOverallScore(data);
   populateCategoryCards(data);
   populatePerformanceStats(data);
@@ -653,6 +722,22 @@ function populateReport(data) {
   populateTranscription(data);
   populateKeyMoments(data);
   populateStrengthsAndImprovements(data);
+}
+
+function populateVideoLink(data) {
+  const section = document.getElementById('rVideoSection');
+  const urlEl = document.getElementById('rVideoUrl');
+  const btnEl = document.getElementById('rVideoBtn');
+  if (!section) return;
+
+  const url = data.video_url || '';
+  if (!url) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+  if (urlEl) { urlEl.textContent = url; urlEl.href = url; }
+  if (btnEl) { btnEl.href = url; }
 }
 
 function populateMatchBanner(data) {
@@ -1165,30 +1250,48 @@ function initReportsPage() {
   reportsInitialized = true;
   renderReportsGrid();
 
-  // Search
-  const searchInput = document.getElementById('reportsSearchInput');
-  if (searchInput) {
-    searchInput.addEventListener('input', () => renderReportsGrid(searchInput.value.trim()));
-  }
-  // Sort
-  const sortSelect = document.getElementById('reportsSortSelect');
-  if (sortSelect) {
-    sortSelect.addEventListener('change', () => renderReportsGrid(searchInput?.value.trim()));
-  }
+  // All filters trigger re-render
+  const filterIds = ['reportsSearchInput', 'reportsRoleFilter', 'reportsScoreFilter', 'reportsDateFilter', 'reportsSortSelect'];
+  filterIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', () => renderReportsGrid());
+    }
+  });
 }
 
-function renderReportsGrid(search) {
-  const grid = document.getElementById('reportsGrid');
-  if (!grid) return;
-
+function getFilteredReports() {
   let reports = [...DUMMY_REPORTS];
 
-  // Filter
+  // Text search
+  const search = document.getElementById('reportsSearchInput')?.value.trim();
   if (search) {
     const q = search.toLowerCase();
     reports = reports.filter(r =>
       r.commentator.includes(q) || r.teamA.includes(q) || r.teamB.includes(q) || r.channel.includes(q)
     );
+  }
+
+  // Role filter
+  const roleFilter = document.getElementById('reportsRoleFilter')?.value;
+  if (roleFilter && roleFilter !== 'all') {
+    reports = reports.filter(r => r.role === roleFilter);
+  }
+
+  // Score filter
+  const scoreFilter = document.getElementById('reportsScoreFilter')?.value;
+  if (scoreFilter && scoreFilter !== 'all') {
+    const [min, max] = scoreFilter.split('-').map(Number);
+    reports = reports.filter(r => r.overallScore >= min && r.overallScore <= max);
+  }
+
+  // Date filter
+  const dateFilter = document.getElementById('reportsDateFilter')?.value;
+  if (dateFilter && dateFilter !== 'all') {
+    const days = parseInt(dateFilter);
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+    reports = reports.filter(r => new Date(r.date) >= cutoff);
   }
 
   // Sort
@@ -1200,6 +1303,15 @@ function renderReportsGrid(search) {
     if (sort === 'score-asc') return a.overallScore - b.overallScore;
     return 0;
   });
+
+  return reports;
+}
+
+function renderReportsGrid() {
+  const grid = document.getElementById('reportsGrid');
+  if (!grid) return;
+
+  let reports = getFilteredReports();
 
   if (reports.length === 0) {
     grid.innerHTML = `<div class="reports-empty"><p>لا توجد تقارير مطابقة للبحث</p></div>`;
@@ -1240,8 +1352,10 @@ function renderReportsGrid(search) {
         `).join('')}
       </div>
       <div class="report-list-footer">
+        <span class="tag tag-blue">${r.role || 'معلق'}</span>
         <span class="report-list-best tag tag-green">الأفضل: ${topCat.name} (${topCat.score})</span>
         <span class="report-list-worst tag tag-amber">يحتاج تحسين: ${lowCat.name} (${lowCat.score})</span>
+        ${r.video_url ? `<a href="${r.video_url}" target="_blank" rel="noopener" class="tag tag-blue" onclick="event.stopPropagation();" style="text-decoration:none;">&#9654; مشاهدة الفيديو</a>` : ''}
       </div>
     </div>
   `;
@@ -1585,7 +1699,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Nav items
-  const navMap = ['home', 'upload', 'reports', 'statistics', 'settings'];
+  const navMap = ['home', 'upload', 'reports', 'statistics', 'stars', 'criteria', 'settings'];
   document.querySelectorAll('.nav-item').forEach((item, idx) => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
@@ -1616,4 +1730,458 @@ document.addEventListener('DOMContentLoaded', () => {
   if (errorModal) errorModal.addEventListener('click', (e) => {
     if (e.target === errorModal) hideError();
   });
+
+  // Load theme
+  initTheme();
 });
+
+// ═══════════════════════════════════════════════════════════════
+// THEME SWITCHER
+// ═══════════════════════════════════════════════════════════════
+function initTheme() {
+  const saved = localStorage.getItem('thmanyah_theme') || 'thmanyah';
+  applyTheme(saved);
+}
+
+function toggleTheme() {
+  const current = document.body.getAttribute('data-theme') || 'thmanyah';
+  const next = current === 'thmanyah' ? 'ananas' : 'thmanyah';
+  applyTheme(next);
+  localStorage.setItem('thmanyah_theme', next);
+}
+
+function applyTheme(theme) {
+  if (theme === 'ananas') {
+    document.body.setAttribute('data-theme', 'ananas');
+  } else {
+    document.body.removeAttribute('data-theme');
+  }
+  // Update switcher UI
+  const options = document.querySelectorAll('.theme-option');
+  options.forEach(opt => {
+    opt.classList.toggle('active', opt.getAttribute('data-theme') === theme);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// EXCEL EXPORT
+// ═══════════════════════════════════════════════════════════════
+function exportExcel() {
+  if (!state.report) { showToast('لا يوجد تقرير لتصديره'); return; }
+  const data = state.report;
+  const rows = [];
+
+  // Header info
+  rows.push(['تقرير تحليل الأداء']);
+  rows.push(['المعلق', data.commentator?.name || '']);
+  rows.push(['القناة', data.commentator?.channel || '']);
+  rows.push(['المباراة', `${data.match_info?.team_a} ${data.match_info?.score} ${data.match_info?.team_b}`]);
+  rows.push(['البطولة', data.match_info?.competition || '']);
+  rows.push(['التاريخ', data.match_info?.date || '']);
+  rows.push(['التقييم العام', data.overall?.score, data.overall?.rating]);
+  if (data.video_url) rows.push(['رابط الفيديو', data.video_url]);
+  rows.push([]);
+
+  // Categories
+  rows.push(['المحور', 'الدرجة', 'التقييم']);
+  if (data.categories) {
+    data.categories.forEach(cat => {
+      rows.push([cat.name, cat.score, cat.rating]);
+      if (cat.criteria) {
+        cat.criteria.forEach(cr => {
+          rows.push(['  ' + cr.name, cr.score, cr.note || '']);
+        });
+      }
+    });
+  }
+  rows.push([]);
+
+  // Strengths & Improvements
+  rows.push(['نقاط القوة']);
+  (data.strengths || []).forEach(s => rows.push(['', s]));
+  rows.push([]);
+  rows.push(['مجالات التحسين']);
+  (data.improvements || []).forEach(s => rows.push(['', s]));
+
+  downloadCSV(rows, `تحليل-${data.commentator?.name || 'تقرير'}-${new Date().toISOString().slice(0,10)}.csv`);
+}
+
+function exportFilteredReportsExcel() {
+  const reports = getFilteredReports();
+  if (reports.length === 0) { showToast('لا توجد تقارير لتصديرها'); return; }
+
+  const rows = [];
+  rows.push(['المعلق', 'الدور', 'الفريق أ', 'النتيجة', 'الفريق ب', 'البطولة', 'التاريخ', 'التقييم العام', 'التصنيف', 'القناة', 'رابط الفيديو', 'التعليقات']);
+  reports.forEach(r => {
+    rows.push([r.commentator, r.role || 'معلق', r.teamA, r.score, r.teamB, r.competition, r.date, r.overallScore, r.rating, r.channel, r.video_url || '', r.comments || '']);
+  });
+
+  downloadCSV(rows, `تقارير-المعلقين-${new Date().toISOString().slice(0,10)}.csv`);
+}
+
+function exportFilteredReportsPDF() {
+  showToast('جارٍ تصدير PDF للتقارير المحددة...');
+  // For bulk PDF, generate a summary page
+  const reports = getFilteredReports();
+  if (reports.length === 0) { showToast('لا توجد تقارير لتصديرها'); return; }
+
+  const container = document.createElement('div');
+  container.style.cssText = 'padding:20px;max-width:800px;font-family:sans-serif;direction:rtl;';
+  container.innerHTML = `
+    <h1 style="text-align:center;margin-bottom:20px;">ملخص التقارير — ${reports.length} تقارير</h1>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:#000;color:#fff;">
+          <th style="padding:8px;text-align:right;">المعلق</th>
+          <th style="padding:8px;text-align:right;">الدور</th>
+          <th style="padding:8px;text-align:right;">المباراة</th>
+          <th style="padding:8px;text-align:center;">التقييم</th>
+          <th style="padding:8px;text-align:right;">التاريخ</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${reports.map((r, i) => `
+          <tr style="background:${i % 2 ? '#f7f4ee' : '#fff'};">
+            <td style="padding:8px;">${r.commentator}</td>
+            <td style="padding:8px;">${r.role || 'معلق'}</td>
+            <td style="padding:8px;">${r.teamA} ${r.score} ${r.teamB}</td>
+            <td style="padding:8px;text-align:center;font-weight:bold;color:${getScoreColor(r.overallScore)};">${r.overallScore}</td>
+            <td style="padding:8px;">${r.date}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+  document.body.appendChild(container);
+
+  const loadAndExport = async () => {
+    if (!window.html2pdf) {
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js');
+    }
+    await html2pdf().set({
+      margin: [10, 10], filename: `ملخص-التقارير-${new Date().toISOString().slice(0,10)}.pdf`,
+      html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).from(container).save();
+    document.body.removeChild(container);
+  };
+  loadAndExport().catch(() => { document.body.removeChild(container); showToast('فشل تصدير PDF'); });
+}
+
+function exportStarsExcel() {
+  const stars = getStarsData();
+  if (stars.length === 0) { showToast('لا توجد بيانات'); return; }
+  const rows = [['النجم', 'الدور', 'القناة', 'متوسط التقييم', 'عدد التقارير', 'الاتجاه']];
+  stars.forEach(s => {
+    rows.push([s.name, s.role, s.channel, s.avgScore, s.reports.length, s.trendLabel]);
+  });
+  downloadCSV(rows, `النجوم-${new Date().toISOString().slice(0,10)}.csv`);
+}
+
+function exportStarsPDF() {
+  showToast('جارٍ تصدير تقارير النجوم...');
+  // Re-use the stars grid content
+  const grid = document.getElementById('starsGrid');
+  if (!grid || !grid.innerHTML) { showToast('لا توجد بيانات'); return; }
+  const loadAndExport = async () => {
+    if (!window.html2pdf) {
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js');
+    }
+    await html2pdf().set({
+      margin: [10, 10], filename: `تقارير-النجوم-${new Date().toISOString().slice(0,10)}.pdf`,
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0, windowWidth: 900 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all', 'css'] },
+    }).from(grid).save();
+  };
+  loadAndExport().catch(() => showToast('فشل تصدير PDF'));
+}
+
+function downloadCSV(rows, filename) {
+  const BOM = '\uFEFF';
+  const csv = rows.map(row =>
+    row.map(cell => {
+      const s = String(cell ?? '').replace(/"/g, '""');
+      return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s}"` : s;
+    }).join(',')
+  ).join('\n');
+
+  const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(`تم تصدير ${filename}`);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STARS PAGE
+// ═══════════════════════════════════════════════════════════════
+let starsInitialized = false;
+function initStarsPage() {
+  if (starsInitialized) return;
+  starsInitialized = true;
+  renderStarsGrid();
+
+  ['starsSearchInput'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => renderStarsGrid());
+  });
+  ['starsRoleFilter', 'starsTrendFilter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => renderStarsGrid());
+  });
+}
+
+function getStarsData() {
+  const starMap = {};
+  DUMMY_REPORTS.forEach(r => {
+    if (!starMap[r.commentator]) {
+      starMap[r.commentator] = {
+        name: r.commentator,
+        role: r.role || 'معلق',
+        channel: r.channel,
+        reports: [],
+      };
+    }
+    starMap[r.commentator].reports.push(r);
+  });
+
+  return Object.values(starMap).map(star => {
+    const sorted = [...star.reports].sort((a, b) => a.date.localeCompare(b.date));
+    const avgScore = Math.round(sorted.reduce((s, r) => s + r.overallScore, 0) / sorted.length);
+
+    // Calculate trend
+    let trend = 'stable';
+    let trendLabel = 'مستقر';
+    let trendDiff = 0;
+    if (sorted.length >= 2) {
+      const first = sorted[0].overallScore;
+      const last = sorted[sorted.length - 1].overallScore;
+      trendDiff = last - first;
+      if (trendDiff >= 3) { trend = 'improving'; trendLabel = 'يتحسن'; }
+      else if (trendDiff <= -3) { trend = 'declining'; trendLabel = 'يتراجع'; }
+    }
+
+    // Average categories
+    const catNames = sorted[0].categories.map(c => c.name);
+    const avgCats = catNames.map((name, i) => ({
+      name,
+      score: Math.round(sorted.reduce((s, r) => s + (r.categories[i]?.score || 0), 0) / sorted.length),
+    }));
+
+    return { ...star, avgScore, trend, trendLabel, trendDiff, sortedReports: sorted, avgCats };
+  });
+}
+
+function renderStarsGrid() {
+  const grid = document.getElementById('starsGrid');
+  if (!grid) return;
+
+  let stars = getStarsData();
+
+  // Filters
+  const search = document.getElementById('starsSearchInput')?.value.trim();
+  if (search) {
+    const q = search.toLowerCase();
+    stars = stars.filter(s => s.name.includes(q));
+  }
+  const roleFilter = document.getElementById('starsRoleFilter')?.value;
+  if (roleFilter && roleFilter !== 'all') {
+    stars = stars.filter(s => s.role === roleFilter);
+  }
+  const trendFilter = document.getElementById('starsTrendFilter')?.value;
+  if (trendFilter && trendFilter !== 'all') {
+    stars = stars.filter(s => s.trend === trendFilter);
+  }
+
+  if (stars.length === 0) {
+    grid.innerHTML = '<div class="reports-empty"><p>لا توجد نتائج مطابقة</p></div>';
+    return;
+  }
+
+  grid.innerHTML = stars.map(star => {
+    const trendIcon = star.trend === 'improving' ? '&#9650;' : star.trend === 'declining' ? '&#9660;' : '&#9644;';
+    const trendSign = star.trendDiff > 0 ? '+' : '';
+
+    // Progress SVG
+    const points = star.sortedReports.map((r, i) => ({
+      x: star.sortedReports.length === 1 ? 50 : (i / (star.sortedReports.length - 1)) * 100,
+      y: 100 - r.overallScore,
+    }));
+    const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+
+    return `
+    <div class="star-card">
+      <div class="star-card-header">
+        <div class="star-card-avatar">${star.name.charAt(0)}</div>
+        <div class="star-card-info">
+          <span class="star-card-name">${star.name}</span>
+          <span class="star-card-role">${star.role} — ${star.channel}</span>
+          <span class="star-card-channel">${star.reports.length} تقارير خلال آخر 3 أشهر</span>
+        </div>
+        <div class="star-card-score" style="background:${getScoreColor(star.avgScore)}20;">
+          <span class="star-card-score-num" style="color:${getScoreColor(star.avgScore)};">${star.avgScore}</span>
+          <span class="star-card-score-label" style="color:${getScoreColor(star.avgScore)};">متوسط التقييم</span>
+          <span class="star-card-trend ${star.trend}">${trendIcon} ${trendSign}${star.trendDiff} ${star.trendLabel}</span>
+        </div>
+      </div>
+      <div class="star-card-body">
+        <!-- Progress Chart -->
+        <div class="star-progress-chart">
+          <svg viewBox="-5 0 110 110" class="star-progress-svg" preserveAspectRatio="none">
+            <line x1="0" y1="25" x2="100" y2="25" stroke="#EFEDE2" stroke-width="0.5"/>
+            <line x1="0" y1="50" x2="100" y2="50" stroke="#EFEDE2" stroke-width="0.5"/>
+            <line x1="0" y1="75" x2="100" y2="75" stroke="#EFEDE2" stroke-width="0.5"/>
+            ${points.length > 1 ? `
+              <path d="${pathD} L ${points[points.length-1].x} 100 L ${points[0].x} 100 Z" fill="rgba(0,193,122,0.06)" />
+              <path d="${pathD}" fill="none" stroke="${getScoreColor(star.avgScore)}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            ` : ''}
+            ${points.map(p => `<circle cx="${p.x}" cy="${p.y}" r="4" fill="${getScoreColor(star.avgScore)}" stroke="#fff" stroke-width="2"/>`).join('')}
+          </svg>
+        </div>
+
+        <!-- Category Averages -->
+        <div class="star-cats-grid">
+          ${star.avgCats.map(c => `
+            <div class="star-cat-mini">
+              <span class="star-cat-mini-score" style="color:${getScoreColor(c.score)};">${c.score}</span>
+              <span class="star-cat-mini-name">${c.name}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Timeline -->
+        <div class="star-timeline">
+          <h4 class="star-timeline-title">&#128197; مسار الأداء — Timeline</h4>
+          <div class="star-timeline-entries">
+            ${star.sortedReports.map(r => `
+              <div class="star-timeline-entry">
+                <span class="star-timeline-date">${r.date}</span>
+                <span class="star-timeline-match">${r.teamA} ${r.score} ${r.teamB}</span>
+                <span class="star-timeline-score" style="background:${getScoreColor(r.overallScore)}15;color:${getScoreColor(r.overallScore)};">${r.overallScore}</span>
+                ${r.video_url ? `<a href="${r.video_url}" target="_blank" rel="noopener" class="star-timeline-video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> فيديو</a>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CRITERIA PAGE — Role-Based Standards
+// ═══════════════════════════════════════════════════════════════
+const ROLE_CRITERIA = {
+  commentator: {
+    title: 'معايير تقييم المعلقين',
+    description: '8 محاور رئيسية و32 معيارًا فرعيًا تغطي كل جوانب أداء المعلق الرياضي',
+    sections: [
+      { name: 'الأداء الصوتي', criteria: ['وضوح النطق والإلقاء', 'التنوع في طبقات الصوت', 'إيقاع وسرعة الكلام', 'إدارة فترات الصمت'] },
+      { name: 'اللغة والأسلوب', criteria: ['سلامة اللغة العربية', 'ثراء المفردات', 'البلاغة والتعبيرات', 'الأسلوب السردي'] },
+      { name: 'التحليل التكتيكي', criteria: ['قراءة التشكيلات والخطط', 'تفسير القرارات التكتيكية', 'دقة المعلومات والإحصائيات', 'الإعداد والتحضير المسبق'] },
+      { name: 'تغطية الأحداث', criteria: ['وصف اللعب لحظة بلحظة', 'تعليق الأهداف واللحظات الحاسمة', 'التزامن مع الصورة', 'تغطية الإعادات'] },
+      { name: 'التوازن العاطفي', criteria: ['الحياد وعدم الانحياز', 'التعامل مع قرارات الحكم', 'إدارة الانفعالات', 'الاحترافية في المواقف الصعبة'] },
+      { name: 'التفاعل مع المشاهد', criteria: ['بناء الإثارة والتشويق', 'إضافة قيمة معرفية', 'التواصل مع المحلل', 'الخاتمة والتلخيص'] },
+      { name: 'المعرفة الرياضية', criteria: ['معرفة تاريخ اللاعبين', 'الإلمام بسياق البطولة', 'المراجع التاريخية والمقارنات', 'معرفة القوانين واللوائح'] },
+      { name: 'الإبداع والتميز', criteria: ['أسلوب تعليق فريد', 'عبارات وتعبيرات لا تُنسى', 'القدرة على السرد القصصي', 'اتساق الهوية الشخصية'] },
+    ],
+  },
+  presenter: {
+    title: 'معايير تقييم المقدمين',
+    description: '8 محاور رئيسية تغطي أداء مقدمي البرامج والاستوديوهات الرياضية',
+    sections: [
+      { name: 'الأداء الصوتي والبصري', criteria: ['وضوح النطق والإلقاء', 'الحضور أمام الكاميرا', 'لغة الجسد والتعبيرات', 'المظهر المهني'] },
+      { name: 'اللغة والأسلوب', criteria: ['سلامة اللغة العربية', 'وضوح الأسئلة والتعليقات', 'التنوع في صياغة الأسئلة', 'القدرة على التلخيص'] },
+      { name: 'إدارة الحوار', criteria: ['توزيع الوقت بين الضيوف', 'التحكم في إيقاع الحلقة', 'إدارة الخلافات', 'مهارات الاستماع الفعال'] },
+      { name: 'تغطية المحاور', criteria: ['تناول جميع المحاور المطلوبة', 'الربط بين المحاور', 'مرونة التنقل بين المواضيع', 'تقديم المعلومات الأساسية'] },
+      { name: 'التوازن والحياد', criteria: ['الحياد تجاه الأندية', 'عدم التأثر بالضيوف', 'الموضوعية في الطرح', 'احترام وجهات النظر المختلفة'] },
+      { name: 'التفاعل مع الضيوف', criteria: ['بناء علاقة مع الضيف', 'طرح أسئلة معمقة', 'ردود فعل ذكية', 'تقديم الضيوف بشكل مناسب'] },
+      { name: 'المعرفة الرياضية', criteria: ['الإلمام بالأحداث الرياضية', 'معرفة اللاعبين والأندية', 'متابعة آخر المستجدات', 'فهم السياق الرياضي'] },
+      { name: 'الحضور والكاريزما', criteria: ['القدرة على جذب الانتباه', 'بناء التشويق والإثارة', 'الانتقالات السلسة', 'ختام مؤثر وملخص'] },
+    ],
+  },
+  reporter: {
+    title: 'معايير تقييم المراسلين',
+    description: '8 محاور لتقييم أداء المراسلين الميدانيين في التغطيات الرياضية',
+    sections: [
+      { name: 'الأداء الصوتي', criteria: ['وضوح الصوت في الميدان', 'سرعة الإلقاء المناسبة', 'التعامل مع الضوضاء المحيطة', 'نبرة مهنية وواثقة'] },
+      { name: 'اللغة والأسلوب', criteria: ['سلامة اللغة تحت الضغط', 'إيجاز المعلومات', 'وضوح التقارير', 'بناء تقرير متسلسل'] },
+      { name: 'دقة المعلومات', criteria: ['صحة الأخبار والمعلومات', 'التحقق من المصادر', 'تحديث المعلومات أولًا بأول', 'تجنب الإشاعات'] },
+      { name: 'سرعة النقل', criteria: ['سرعة الوصول للخبر', 'التقاط اللحظات المهمة', 'المباشرة والفورية', 'الجاهزية للتغطية الطارئة'] },
+      { name: 'التواصل مع الاستوديو', criteria: ['الرد على أسئلة المقدم', 'التنسيق مع فريق البث', 'سلاسة التحول من وإلى الاستوديو', 'إضافة سياق للاستوديو'] },
+      { name: 'التحضير والإعداد', criteria: ['جمع المعلومات المسبقة', 'معرفة تفاصيل الحدث', 'تحضير زوايا مختلفة للتقرير', 'الإعداد التقني'] },
+      { name: 'التعامل مع المواقف', criteria: ['الهدوء تحت الضغط', 'التكيف مع التغييرات المفاجئة', 'التعامل مع المواقف الصعبة', 'الاحترافية في الأزمات'] },
+      { name: 'الحضور الميداني', criteria: ['اختيار الموقع المناسب', 'التفاعل مع البيئة المحيطة', 'نقل الأجواء الحقيقية', 'بناء علاقات مع المصادر'] },
+    ],
+  },
+  analyst: {
+    title: 'معايير تقييم المحللين',
+    description: '8 محاور لتقييم المحللين الرياضيين والخبراء التكتيكيين',
+    sections: [
+      { name: 'الأداء الصوتي', criteria: ['وضوح الشرح والتوضيح', 'إيقاع العرض', 'استخدام نبرة مقنعة', 'التحكم في الصوت'] },
+      { name: 'اللغة والأسلوب', criteria: ['استخدام المصطلحات الصحيحة', 'تبسيط المفاهيم المعقدة', 'بناء حجج منطقية', 'التوازن بين التخصص والبساطة'] },
+      { name: 'عمق التحليل', criteria: ['تحليل الأسباب وليس النتائج فقط', 'ربط الأحداث ببعضها', 'تقديم رؤى جديدة', 'التنبؤ بسيناريوهات محتملة'] },
+      { name: 'قراءة التشكيلات', criteria: ['فهم التشكيلات والأنظمة', 'رصد التغييرات التكتيكية', 'تحليل نقاط القوة والضعف', 'مقارنة الأساليب'] },
+      { name: 'الموضوعية', criteria: ['الحياد في التحليل', 'الاعتراف بالأخطاء', 'عدم الانحياز لطرف', 'تقديم وجهات نظر متعددة'] },
+      { name: 'التفاعل مع المعلق/المقدم', criteria: ['الرد السريع والمفيد', 'إثراء الحوار', 'عدم المقاطعة', 'التكامل مع فريق البث'] },
+      { name: 'استخدام البيانات', criteria: ['الاستشهاد بالإحصائيات', 'تفسير الأرقام بشكل مفهوم', 'استخدام المقارنات', 'دعم التحليل بالأدلة'] },
+      { name: 'وضوح الشرح', criteria: ['استخدام أمثلة واضحة', 'التوضيح بالرسومات إن أمكن', 'تدرج الشرح من البسيط للمعقد', 'تلخيص النقاط الرئيسية'] },
+    ],
+  },
+};
+
+let criteriaInitialized = false;
+function initCriteriaPage() {
+  if (criteriaInitialized) return;
+  criteriaInitialized = true;
+  switchCriteriaRole('commentator');
+}
+
+function switchCriteriaRole(role) {
+  // Update tabs
+  document.querySelectorAll('.criteria-role-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  const tabMap = { commentator: 0, presenter: 1, reporter: 2, analyst: 3 };
+  document.querySelectorAll('.criteria-role-tab')[tabMap[role]]?.classList.add('active');
+
+  const container = document.getElementById('criteriaRoleContent');
+  if (!container) return;
+
+  const data = ROLE_CRITERIA[role];
+  if (!data) return;
+
+  let num = 0;
+  container.innerHTML = `
+    <div style="margin-bottom:var(--space-4);">
+      <h3 style="font-family:var(--font-display);font-weight:900;font-size:24px;margin-bottom:var(--space-2);">${data.title}</h3>
+      <p style="font-size:14px;color:var(--color-muted);line-height:1.7;font-weight:500;">${data.description}</p>
+    </div>
+    ${data.sections.map(section => `
+      <div class="criteria-role-section">
+        <h4 class="criteria-role-section-title">
+          <span class="criteria-dot" style="background:var(--color-green);"></span>
+          ${section.name}
+        </h4>
+        <div class="criteria-role-list">
+          ${section.criteria.map(cr => {
+            num++;
+            return `
+              <div class="criteria-role-item">
+                <span class="criteria-role-num">${num}</span>
+                <div class="criteria-role-item-info">
+                  <span class="criteria-role-item-name">${cr}</span>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
